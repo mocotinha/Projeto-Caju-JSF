@@ -1,56 +1,63 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<h:html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
-<h:body>
-<h:form>
-	<h:commandLink action="add_reuniao" value="Nova reuniao" actionListener="#{reuniaoBean.novo}"></h:commandLink>
-	<h:dataTable value="#{reuniaoBean.reunioes}" var="dados">
-		<h:column>
-			<f:facet name="header">
-				<h:outputText value="CÃ³digo"></h:outputText>
-			</f:facet>
-			<h:outputText value="#{dados.id}"></h:outputText>
-		</h:column>
-		<h:column>
-			<f:facet name="header">Data de Agendamento</f:facet>
-			<h:outputText value="#{dados.dataAgenda}"></h:outputText>
-		</h:column>
-		<h:column>
-			<f:facet name="header">Data da ReuniÃ£o</f:facet>
-			<h:outputText value="#{dados.dataReuniao}"></h:outputText>
-		</h:column>
-		<h:column>
-			<f:facet name="header">Membros presentes</f:facet>
-			<h:outputText value="#{dados.membrosPresentes}"></h:outputText>
-		</h:column>
-		<h:column>
-			<f:facet name="header">Pauta</f:facet>
-			<h:outputText value="#{dados.pauta}"></h:outputText>
-		</h:column>		
-		<h:column>
-			<f:facet name="header">Ata</f:facet>
-			<h:outputText value="#{dados.ata}"></h:outputText>
-		</h:column>		
-		<h:column>
-			<f:facet name="header">Processos</f:facet>
-			<h:outputText value="#{dados.parocessos}"></h:outputText>
-		</h:column>		
-		
-		<h:column>
-			<f:facet name="header">AÃ§Ãµes</f:facet>			
-			<h:commandButton value="Editar" action="editar_reuniao" actionListener="#{reuniaoBean.selecionarReuniao}"></h:commandButton>
+<ui:composition template="/template/main.xhtml">
+	<ui:define name="title">Listar Reuniao</ui:define>
+	<ui:define name="body">
+		<h:form>
+			<h:commandLink action="add_reuniao" value="Nova reuniao"
+				actionListener="#{reuniaoBean.novo}"></h:commandLink>
+			<h:dataTable value="#{reuniaoBean.reunioes}" var="dados">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Código"></h:outputText>
+					</f:facet>
+					<h:outputText value="#{dados.id}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Data de Agendamento</f:facet>
+					<h:outputText value="#{dados.dataAgenda}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Data da Reunião</f:facet>
+					<h:outputText value="#{dados.dataReuniao}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Membros presentes</f:facet>
+					<h:outputText value="#{dados.membrosPresentes}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Pauta</f:facet>
+					<h:outputText value="#{dados.pauta}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Ata</f:facet>
+					<h:outputText value="#{dados.ata}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Processos</f:facet>
+					<h:outputText value="#{dados.parocessos}"></h:outputText>
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">Ações</f:facet>
+					<h:commandButton value="Editar" action="editar_reuniao"
+						actionListener="#{reuniaoBean.selecionarReuniao}"></h:commandButton>
 			&nbsp;
-			<h:commandButton value="Excluir" action="deletar_reuniao" actionListener="#{reuniaoBean.selecionarReuniao}"></h:commandButton>
-			
-	
-		</h:column>
-	</h:dataTable>
-	
-</h:form>
-</h:body>
-</html>
+			<h:commandButton value="Excluir" action="deletar_reuniao"
+						actionListener="#{reuniaoBean.selecionarReuniao}"></h:commandButton>
+
+
+				</h:column>
+			</h:dataTable>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</h:html>

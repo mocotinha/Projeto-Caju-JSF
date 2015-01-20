@@ -1,73 +1,68 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<h:html xmlns="http://www.w3.org/1999/xhtml"
 	  xmlns:h="http://java.sun.com/jsf/html"
 	  xmlns:f="http://java.sun.com/jsf/core"
 	  xmlns:ui="http://java.sun.com/jsf/facelets"
 	  xmlns:p="http://primefaces.org/ui">
-	<h:head>
-		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-		<title>Insert title here</title>
-	</h:head>
-	<h:body>
-		<p:link value="Bookmark">
-		    <f:param name="productId" value="10" />
-		</p:link>
-	
-		<h:form id="formListagem">
-		
-			 <p:dataTable id="membrosListagem" var="membro" value="#{sistemaMembro.allMembros}" selectionMode="single" selection="#{sistemaMembro.selectedMembro}" rowKey="#{membro.id}" sortMode="multiple">
-		        
-		        <f:facet name="header">
-		            Listagem de membros
-		        </f:facet>
-		        
-		        <p:column headerText="Id" sortBy="#{membro.id}">
-		            <h:outputText value="#{membro.id}" />
-		        </p:column>
-		        
-		        <p:column headerText="Nome" sortBy="#{membro.nome}">
-		            <h:outputText value="#{membro.nome}" />
-		        </p:column>
-		        
-		        <p:column headerText="Email" sortBy="#{membro.email}">
-		            <h:outputText value="#{membro.email}" />
-		        </p:column>
-		        
-		        <p:column headerText="Ativo" sortBy="#{membro.ativo}">
-		            <h:outputText value="#{membro.ativo ? 'Sim' : 'Não'}" />
-		        </p:column>
-		        
-		        <p:column headerText="Ações">
-		        	<p:commandButton value="Editar" id="editMembro" actionListener="#{sistemaMembro.editaMembro(membro)}" ajax="false">
-		        		<f:setPropertyActionListener value="#{membro}" target="#{sistemaMembro.selectedMembro}" />
-		        	</p:commandButton>
-		        </p:column>
-		        
-<!-- 		        <f:facet name="footer"> -->
-<!-- 		            <p:commandButton process="membrosListagem" icon="ui-icon-search" value="View" oncomplete="PF('membroDialog').show()" /> -->
-<!-- 		        </f:facet> -->
-		    </p:dataTable>
-		    
-<!-- 		    <p:dialog header="Informação do membro" widgetVar="membroDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false"> -->
-<!-- 		        <p:outputPanel id="membroDetail" style="text-align:center;"> -->
-<!-- 		            <p:panelGrid  columns="2" rendered="#{not empty sistemaMembro.membro}" columnClasses="label,value"> -->
-		 
-<!-- 		                <h:outputText value="Id:" /> -->
-<!-- 		                <h:outputText value="#{sistemaMembro.membro.id}" /> -->
-		 
-<!-- 		                <h:outputText value="Nome" /> -->
-<!-- 		                <h:outputText value="#{sistemaMembro.membro.nome}" /> -->
-		 
-<!-- 		                <h:outputText value="Email" /> -->
-<!-- 		                <h:outputText value="#{sistemaMembro.membro.email}"/> -->
-		 
-<!-- 		                <h:outputText value="Ativo" /> -->
-<!-- 		                <h:outputText value="#{sistemaMembro.membro.ativo ? 'Sim' : 'Não'}" /> -->
-<!-- 		            </p:panelGrid> -->
-<!-- 		        </p:outputPanel> -->
-<!-- 		    </p:dialog> -->
-		    
-	    </h:form>
-	</h:body>
-</html>
+	<ui:composition template="/template/main.xhtml">
+	<ui:define name="title">Membros</ui:define>
+  <ui:define name="body">
+  <div class="container">
+		<!-- 		<p:tabMenu activeIndex="#{param.i}"> -->
+		<!-- 			    <p:menuitem value="Inicio" outcome="index"> -->
+		<!-- 			        <f:param name="i" value="0" /> -->
+		<!-- 			    </p:menuitem> -->
+		<!-- 			    <p:menuitem value="Cadastar Membro" outcome="add_membro"> -->
+		<!--         			<f:param name="i" value="1" /> -->
+		<!--     			</p:menuitem> -->
+		<!-- 		</p:tabMenu> -->
+				 <p:panel id="basic" header="Membros Registrados"  footer="@IFPB" style="margin-bottom:20px">
+				<h:form id="formListagem">
+				
+					 <p:dataTable id="membrosListagem" tableStyleClass="table table-hover table-striped table-condensed" var="membro" value="#{sistemaMembro.allMembros}" rows="10" sortOrder="descending"
+		                         paginator="true"
+		                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		                         rowsPerPageTemplate="5,10,15">
+				        
+				        <p:column headerText="Nome" >
+				            <h:outputText value="#{membro.nome}" />
+				        </p:column>
+				        
+				        <p:column headerText="Perfil">
+				            <h:outputText value="#{membro.perfil}" />
+				        </p:column>
+				        
+				        <p:column headerText="Email">
+				            <h:outputText value="#{membro.email}" />
+				        </p:column>
+				        
+				        <p:column headerText="Telefone">
+				            <h:outputText value="#{membro.telefone}" />
+				        </p:column>
+				        
+				        <p:column headerText="Ativo">
+				            <h:outputText value="#{membro.ativo ? 'Sim' : 'Não'}" />
+				        </p:column>
+				        
+				        <p:column headerText="Ações">
+				        		
+				        	<h:commandLink action="#{sistemaMembro.editar}" styleClass="btn btn-sm btn-default" value="Editar">
+				       		
+				       		<f:setPropertyActionListener  target="#{sistemaMembro.membro}" value="#{membro}"/>
+				       		<f:setPropertyActionListener value="#{membro.id}" target="#{sistemaMembro.membro.id}"/>
+				       		<f:param name="id" value="#{membro.id}"/>
+					       
+					       </h:commandLink>
+				        	      
+				        </p:column>
+				        
+				    </p:dataTable>
+				    
+			    </h:form>
+			    </p:panel>
+		</div>
+		</ui:define>
+	</ui:composition>
+</h:html>
+

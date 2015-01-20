@@ -1,0 +1,11 @@
+.bgnav {
+	background-color:#3ec55c;
+	
+}
+
+.rodapebase {
+	position: absolute;
+	bottom: 0;
+	background-color:#3ec55c;
+	width:100%;
+	}
