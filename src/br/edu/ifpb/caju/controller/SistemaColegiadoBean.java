@@ -125,5 +125,9 @@ public class SistemaColegiadoBean implements SistemaColegiadoInterface {
 	public void setColegiadoSelecionado(Colegiado colegiadoSelecionado) {
 		this.colegiadoSelecionado = colegiadoSelecionado;
 	}
+	
+	public String idAsString(){
+		return Integer.toString(this.colegiadoSelecionado.getId());
+	}
 
 }

@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html">
+      
+<h:head>
+<title>Cadastrar Colegiado</title>
+</h:head>
+
+<h:body>
+	<h:form id="formCadCol">
+		<div>
+			<p:commandButton value="Cadastrar" id="btCadastrar" update="tableCad " actionListener="#{colegiadoBean.cadastraColegiado}" styleClass="ui-priority-primary">
+				<p:confirm header="Confirmação" message="Você tem Certeza?" icon="ui-icon-alert" />
+			</p:commandButton>
+		</div>
+		<p:spacer width="10px" />
+		<p:dataTable id="tableCad" var="col" value="#{colegiadoBean.allColegiado}">
+        <p:column headerText="Id">
+            <h:outputText value="#{col.id}" />
+        </p:column>
+        <p:column headerText="Data Ini">
+            <h:outputText value="#{col.dataIni}" >
+            	<f:convertDateTime pattern="dd/MM/yyyy" />
+            </h:outputText>
+        </p:column>
+        <p:column headerText="Data Fim">
+            <h:outputText value="#{col.dataFim}" >
+            	<f:convertDateTime pattern="dd/MM/yyyy" />
+            </h:outputText>
+        </p:column>
+        <p:column headerText="Ativo" >
+            <p:selectBooleanCheckbox value="#{col.ativo}" disabled="true" />
+        </p:column>
+        <p:column>
+			<p:commandButton update= ":colDetalhes" value="Detalhes" oncomplete="PF('detalhesDialog').show()"> 
+				<f:setPropertyActionListener  render="detalhesDialog" value="#{col}" target="#{colegiadoBean.colegiadoSelecionado}"/>
+			</p:commandButton>
+		</p:column>
+    </p:dataTable>
+	</h:form>
+	
+	<p:dialog id="colDetalhes" header="Colegiado" modal="true" widgetVar="detalhesDialog" minHeight="40" width="1150" >
+			<div>
+			<h:outputText value="#{colegiadoBean.colegiadoSelecionado.id}" />
+		</div>
+		<div>
+			<p:outputLabel value="Data Inicial:" />
+			<h:outputText value="#{colegiadoBean.colegiadoSelecionado.dataIni}">
+				 <f:convertDateTime pattern="dd/MM/yyyy" />
+			</h:outputText>
+		</div>
+		<div>
+			<p:outputLabel value="Data Final:" />
+			<h:outputText value="#{colegiadoBean.colegiadoSelecionado.dataFim}">
+			 	<f:convertDateTime pattern="dd/MM/yyyy" />
+			 </h:outputText>
+		</div>
+		<div>
+			<h:outputText value="Ativo: " />
+        	<p:selectBooleanCheckbox value="#{colegiadoBean.colegiadoSelecionado.ativo}" disabled="true" />
+		</div>
+		<div>
+			<p:link outcome="membroColegiado.xhtml"	value="Adicionar Membros" rendered="#{colegiadoBean.colegiadoSelecionado.ativo}"/>
+		</div>
+		</p:dialog>
+	
+	
+	
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+       	<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+  	 	<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+    </p:confirmDialog>
+
+</h:body>
+</html>

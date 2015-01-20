@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>Cadastrar Membros no Colegiado</title>
+</h:head>
+<h:body>
+	<h:form id="form">
+    <p:dataTable id="dtMembros" var="membro" value="#{membroColegiadoBean.membros}" widgetVar="membrosTable"
+                 emptyMessage="Nenhum membro encontrado." filteredValue="#{membroColegiadoBean.filtrados}">
+ 
+        <f:facet name="header">
+            <p:outputPanel>
+            	<h:outputText value="#{membroColegiadoBean.colegiado.id}" />
+            	<br />
+                <h:outputText value="Buscar." />
+                <p:inputText id="globalFilter" onkeyup="PF('membrosTable').filter()" style="width:150px" placeholder="Faça sua busca."/>
+            </p:outputPanel>
+        </f:facet>
+        
+        <p:column style="width:32px;text-align: center">
+             <p:commandButton update=":form:dtMembros :form:dtSelecionados" action="#{membroColegiadoBean.adicionaMembro}" icon="ui-icon ui-icon-plusthick" title="View">
+                <f:setPropertyActionListener value="#{membro}" target="#{membroColegiadoBean.membro}" />
+            </p:commandButton>
+        </p:column>
+ 
+        <p:column filterBy="#{membro.id}" headerText="Id" footerText="contains" filterMatchMode="contains">
+            <h:outputText value="#{membro.id}" />
+        </p:column>
+        
+        <p:column filterBy="#{membro.nome}" headerText="Nome" footerText="contains" filterMatchMode="contains">
+            <h:outputText value="#{membro.nome}" />
+        </p:column>
+    </p:dataTable>
+	<p:outputPanel>
+       <h:outputText value="Membros do colegiado" />
+    </p:outputPanel>
+    <p:dataTable id="dtSelecionados" var="membroSelecionado" value="#{membroColegiadoBean.selecionados}">
+    
+   		 <p:column style="width:32px;text-align: center">
+             <p:commandButton update=":form:dtMembros :form:dtSelecionados" action="#{membroColegiadoBean.removeMembro}" icon="ui-icon ui-icon-minusthick" title="View">
+                <f:setPropertyActionListener value="#{membroSelecionado}" target="#{membroColegiadoBean.membro}" />
+            </p:commandButton>
+        </p:column>
+	    <p:column headerText="Id">
+	        <h:outputText value="#{membroSelecionado.id}" />
+	    </p:column>
+	 
+	    <p:column headerText="Nome">
+	        <h:outputText value="#{membroSelecionado.nome}" />
+	    </p:column>
+	</p:dataTable>
+	<p:commandButton value="Salvar membros no colegiado" id="salvar" update="growl" actionListener="#{membroColegiadoBean.salvarMembros}" ajax="false" />
+</h:form>
+</h:body>
+</html>
