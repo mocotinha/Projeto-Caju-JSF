@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:head>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Votos</title>
+	<h:body>
+		<h:form id="form">
+			<p:growl id="msgs" showDetail="true" />
+			<p:outputLabel for="decisao" value="Decisão:" />
+			<p:selectOneListbox id="decisao" value="#{sistemaVoto.voto.decisao}">
+				<f:selectItem itemLabel="Sim" itemValue="sim" />
+				<f:selectItem itemLabel="Não" itemValue="nao" />
+			</p:selectOneListbox>
+			<p:panel id="texto" header="Texto" style="margin-bottom:20px">
+				<h:panelGrid columns="2" cellpadding="10">
+					<h:outputText for="texto" value="Texto:" />
+					<p:editor id="editor" widgetVar="editorWidget"
+						value="#{sistemaVoto.voto.texto}" width="600" />
+
+				</h:panelGrid>
+				<p:toolbar>
+					<f:facet name="left">
+						<p:commandButton value="Cadastrar" update=":form:texto :formList:lista" actionListener="#{sistemaVoto.cadastraVoto}" />
+					</f:facet>
+				</p:toolbar>
+			</p:panel>
+		</h:form>
+		<h:form id="formList">
+			 <!-- <p:commandButton value="Ajax Submit" id="ajax" 
+				actionListener="#{buttonView.buttonAction}"
+				styleClass="ui-priority-primary" /> --> 
+			<p:dataList id="lista" value="#{sistemaVoto.votos}" var="voto"
+				type="unordered" itemType="none" paginator="true" rows="20"
+				styleClass="paginated">
+				<f:facet name="header" />
+			</p:dataList>
+		</h:form>
+	</h:body>
+</h:head>
+
+</html>

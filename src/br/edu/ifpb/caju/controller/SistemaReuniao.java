@@ -15,42 +15,44 @@ public class SistemaReuniao implements SistemaReuniaoInterface{
 
 	private DAOReuniao dao;
 	
-	private Reuniao reuniao = new Reuniao();
+//	private Reuniao reuniao = new Reuniao();
 	
 	public SistemaReuniao() {
 		this.dao = new DAOReuniao();
 	}
 	
 	@Override
-	public void cadastraReuniao() {
+	public void cadastraReuniao(Reuniao reuniao) {
 		DAO.open();
 		DAO.begin();
-		this.dao.persist(this.reuniao);
+		this.dao.persist(reuniao);
 		DAO.commit();
 		DAO.close();
 		
 	}
 
 	@Override
-	public void removeReuniao() {
+	public void removeReuniao(Reuniao reuniao) {
 		DAO.open();
 		DAO.begin();
-		this.dao.remove(this.reuniao);
+		this.dao.remove(reuniao);
 		DAO.commit();
 		DAO.close();
 		
 	}
 
 	@Override
-	public void editaReuniao() {
+	public void editaReuniao(Reuniao reuniao) {
 		DAO.open();
 		DAO.begin();
-		this.dao.merge(this.reuniao);
+		this.dao.merge(reuniao);
 		DAO.commit();
 		DAO.close();
 		
 	}
 
+	
+	
 	@Override
 	public List<Reuniao> getAllReunioes() {
 		DAO.open();
@@ -61,14 +63,6 @@ public class SistemaReuniao implements SistemaReuniaoInterface{
 		return reunioes;
 	}
 
-	public Reuniao getReuniao() {
-		return reuniao;
-	}
 
-	public void setReuniao(Reuniao reuniao) {
-		this.reuniao = reuniao;
-	}
-
-	
 	
 }

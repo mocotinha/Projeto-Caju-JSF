@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Cadastrar Reunião</title>
+</h:head>
+
+<h:body>
+	<h:form id="form">
+		<p:panel id="panel" header="Cadastro da Reunião" style="margin-bottom:10px;">
+			<p:messages id="messages" />
+			
+			<!-- DATA AGENDAMENTO E DATA REUNIÃO -->
+			<h:panelGrid columns="3" cellpadding="5">
+				<p:outputLabel for="dtAgendamento" value="Data do Agendamento:" />
+				<p:calendar id="dtAgendamento"
+					value="#{reuniaoBean.reuniao.dataAgenda}" showOn="button" />
+				<br />
+			</h:panelGrid>
+			
+						
+			<!-- PAUTA -->
+			<h:outputLabel for="editor_pauta" value="Pauta:" />
+			<p:editor id="editor_pauta" widgetVar="editorWidget" value="#{reuniaoBean.reuniao.pauta}" width="600" />
+		    <h:panelGrid columns="2" style="margin-top: 10px">
+		        <p:commandButton value="Visualizar" update="display2" oncomplete="PF('dlg').show()" icon="ui-icon-disk" />
+		 
+		        <p:commandButton value="Clean" type="button" onclick="PF('editorWidget').clear();" icon="ui-icon-close" />
+		    	<br />
+		    </h:panelGrid>
+		    <p:dialog header="Pauta" widgetVar="dlg" showEffect="fade" hideEffect="fade">
+		        <h:outputText id="display2" value="#{reuniaoBean.reuniao.pauta}" escape="false" />
+		    </p:dialog>		    
+			
+			
+			
+		</p:panel>
+
+		<p:toolbar>
+			<f:facet name="left">
+				<p:commandButton value="Cadastrar" update="panel"
+					actionListener="#{reuniaoBean.cadastraReuniao}"
+					style="margin-right:20px;" />
+			</f:facet>
+
+			<f:facet name="right">
+				<p:commandButton value="Limpar" update="panel" process="@this" style="margin-right:20px;">
+					<p:resetInput target="panel" />
+				</p:commandButton>
+			</f:facet>
+		</p:toolbar>
+	</h:form>
+</h:body>
+
+</html>

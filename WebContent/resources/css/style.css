@@ -1,0 +1,70 @@
+.bgnav {
+	background-color:#3ec55c;
+	
+}
+
+.rodapebase {
+	position: absolute;
+	bottom: 0;
+	background-color:#3ec55c;
+	width:100%;
+	height: 90px;
+	}
+
+#topologin {
+	
+	background-color: #3ec55c;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	
+}
+
+.centraliza {
+	
+	margin-top:150px;
+	
+}
+
+#logocaju {
+	width: 100%;
+	padding: 5px;
+	margin: 0 auto;
+	clear:both;
+}
+
+.btlogin {
+	padding: 10px;
+	color: #fff;
+	font-family: calibri, verdana;
+	font-size: 18px;
+	font-weight: bold;
+	background-color: #3ec55c;
+	border: 0px;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+ 	border-radius:10px;
+}
+
+.btlogin:hover {
+	padding: 10px;
+	color: #fff;
+	font-family: calibri, verdana;
+	font-size: 18px;
+	font-weight: bold;
+	background-color: #4F9E35;
+	box-shadow: 2px 2px 2px #888888;
+	border: 0px;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+ 	border-radius:10px;
+}
+
+.textomenu {
+	padding: 10px;
+	color: #fff;
+	font-family: calibri, verdana;
+	font-size: 18px;
+	font-weight: bold;
+}
+

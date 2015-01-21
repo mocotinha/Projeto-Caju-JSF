@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:pe="http://primefaces.org/ui/extensions">
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+		<title>Processos</title>
+	</h:head>
+	<h:body>
+	
+		<h:form id="form1">
+				
+					<p:panel id="panel" header="Cadastro" style="margin-bottom:10px;">
+					
+					        <p:messages id="messages" />
+					        <h:panelGrid columns="3" cellpadding="5">
+					        <p:growl id="growl2" life="2000" />
+		               			
+		     
+					            <p:outputLabel for="nomeRequerenteProcesso" value="Nome do Requerente:" />
+					            <p:inputText placeHolder = "Nome do Requerente" id="nomeRequerenteProcesso" value="#{sistemaProcesso.processo.nomeRequerente}" required="true" >
+					                <f:validateLength minimum="2" />
+					            </p:inputText>
+					            <p:message for="nomeRequerenteProcesso" />
+					            
+					            <p:outputLabel for="matriculaDoRequerente" value="Matricula do Requerente:" />
+					            <p:inputMask mask = "9?9999999999" placeHolder = "" id="matriculaDoRequerente" value="#{sistemaProcesso.processo.matRequerente}" required="true" >
+					                <f:validateLength minimum="5" />
+					            </p:inputMask>
+								<p:message for="matriculaDoRequerente" />
+					            
+					            <p:outputLabel for="idDoProcesso" value="ID do Processo:" />
+					            <p:inputMask mask = "9?999999999999999999" placeHolder = "" id="idDoProcesso" value="#{sistemaProcesso.processo.idProcesso}" required="true">
+					                <f:validateLength minimum="5" />
+					            </p:inputMask>       
+					            <p:message for="idDoProcesso" />
+					            
+					            <p:outputLabel for="dataProcesso" value="Data do Processo:" />
+	        					<p:calendar mask="9?9/99/9999" id="dataProcesso" value="#{sistemaProcesso.processo.dataDoc}" pattern="dd/MM/yyyy" effect="fold" required="true"/>
+	        					<p:message for="dataProcesso" />
+	        					
+	        					 <p:outputLabel for="periodo" value="Periodo Letivo do Processo:" />
+	        					 <p:inputMask  mask = "9999.9" id="periodo" value="#{sistemaProcesso.processo.periodo}" required="true" >
+					            </p:inputMask>
+					            <p:message for="periodo" />
+	        					
+	        					
+	        					<p:outputLabel for="assunto" value="Assunto:" />
+	        					<p:inputTextarea id="assunto" value = "${sistemaProcesso.processo.assunto}" placeHolder="Assunto" rows="6" cols="33" required="true"/>
+	        					<p:message for="assunto" />
+	        					
+	         					
+	         					<p:outputLabel for="membroSelect" value="Membros:" />
+	         					<p:selectOneMenu id="membroSelect" value="#{sistemaProcesso.membro.id}" required="true">
+	         						<f:selectItem itemLabel="Selecione um relator"></f:selectItem>
+                    				<f:selectItems value="#{sistemaProcesso.allMembros}" var="membro" itemLabel="#{membro.nome}" itemValue="#{membro.id}" />
+                				</p:selectOneMenu>
+						        <p:message for="membroSelect" />
+						        
+						        <p:inputText style="visibility: hidden;" id="id" value="#{sistemaProcesso.processo.id}" required="false" />
+	        					
+			   			
+						</h:panelGrid>
+					</p:panel>
+			    
+			        <p:toolbar>
+			        
+			        <f:facet name="left">
+			            <p:commandButton ajax="true" value="Cadastrar" update=":form:lista :form1:panel" actionListener="#{sistemaProcesso.cadastraProcesso}" style="margin-right:20px;" />
+			        </f:facet>
+			 
+			       	
+			 	   </p:toolbar>
+			 	   
+		 </h:form>
+	
+	    
+	    
+		<h:form id="form">
+			<p:growl id="growl" life="2000" />
+			
+			<br/>
+			 <p:outputLabel for="buscar" value="Buscar:" />
+             <p:inputText placeHolder = "Buscar" id="buscar" value="#{sistemaProcesso.busca}" required="false" />
+             <p:commandButton value="Pesquisar" ajax="false" update=":form:lista" actionListener="#{sistemaProcesso.buscaProcessos}" styleClass="ui-priority-primary" />
+			 <p:dataList id= "lista" value="#{sistemaProcesso.processos}" var="pross" type="unordered" itemType="none" paginator="true" rows="20" styleClass="paginated">
+		       <f:facet name="header">
+		           Processos
+		       </f:facet>
+		       
+		       <p:commandButton ajax="true" action="#{sistemaProcesso.removeProcesso}" update = "@form"  icon="ui-icon ui-icon-close" title="Deletar Processo">
+		       		<p:confirm header="Remover Processo" message="Deseja realmente remover o processo?" icon="ui-icon-alert" />
+		       		<f:setPropertyActionListener value="#{pross}" target="#{sistemaProcesso.processo}"/>
+		       
+		       </p:commandButton>
+		       <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+			        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+			        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			    </p:confirmDialog>
+		       
+		       
+		        <p:commandButton ajax="true" process="@this" update = ":form1:panel"  icon="ui-icon ui-icon-pencil" title="Editar Processo">
+		       		<f:setPropertyActionListener value="#{pross}" target="#{sistemaProcesso.processo}"/>
+		       		<f:setPropertyActionListener value="#{pross.id}" target="#{sistemaProcesso.processo.id}"/>
+		       
+		       </p:commandButton>
+		     
+		 
+		       <p:commandLink update=":form:processoDetail" oncomplete="PF('processoDialog').show()" title="Detalhes do Processo" styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px">
+		           <f:setPropertyActionListener value="#{pross}" target="#{sistemaProcesso.processo}" />
+		           <h:outputText value="#{pross.idProcesso} - #{pross.nomeRequerente}" />
+		       </p:commandLink>
+		       <h:outputText value="#{pross.idProcesso} - #{pross.nomeRequerente}" style="display:inline-block"/>
+		   </p:dataList>
+		   
+		   
+		   <p:dialog widgetVar="deletarProcesso" header="Deletar Processo" modal="true" showEffect="blind" hideEffect="explode" resizable="false">
+		   		<h:outputText value="Processo Deletado Com Sucesso" style="display:inline-block"/>
+		   </p:dialog>
+		   
+			<p:dialog header="Informações do Processo" widgetVar="processoDialog" modal="true" showEffect="blind" hideEffect="fade" resizable="false">
+		        <p:outputPanel id="processoDetail" style="text-align:center;">
+		            <p:panelGrid  columns="2" rendered="#{not empty sistemaProcesso.processo}" columnClasses="label,value">
+		                <f:facet name="header">
+		                    <p:graphicImage value="image/doc.png"/> 
+		                </f:facet>
+		 				
+		                <h:outputText value="Id do Processo:" />
+		                <h:outputText value="#{sistemaProcesso.processo.idProcesso}" />
+		 
+		                <h:outputText value="Matricula do Requerente:" />
+		                <h:outputText value="#{sistemaProcesso.processo.matRequerente}" />
+		 
+		                <h:outputText value="Nome do Requerente:" />
+		                <h:outputText value="#{sistemaProcesso.processo.nomeRequerente}"/>
+		 
+		                <h:outputText value="Data do Processo:" />
+		                <h:outputText value="#{sistemaProcesso.processo.dataDoc}">
+		                	<f:convertDateTime pattern="dd/MM/yyyy" />
+		                </h:outputText>
+		                
+		                <h:outputText value="Periodo Letivo: " />
+		                <h:outputText value="#{sistemaProcesso.processo.periodo}" />
+		                
+		                <h:outputText value="Assunto:" />
+		                <h:outputText value="#{sistemaProcesso.processo.assunto}" />
+		                
+		                 
+		                                
+			           	              	                
+		            </p:panelGrid>
+		        </p:outputPanel>
+		   	</p:dialog>
+	    </h:form>
+  
+	</h:body>
+</html>

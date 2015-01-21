@@ -60,6 +60,15 @@ public class Voto {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
+
+	public Membro getMembro() {
+		return membro;
+	}
+
+
+	public void setMembro(Membro membro) {
+		this.membro = membro;
+	}
 	
 }

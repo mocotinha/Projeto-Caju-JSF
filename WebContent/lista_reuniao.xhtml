@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+</h:head>
+<h:body>
+	<h:form id="form">
+		<p:commandLink action="add_reuniao" value="Nova Reuniao"
+			actionListener="#{reuniaoBean.novo}"></p:commandLink>
+		
+		<p:dataTable var="dados" value="#{reuniaoBean.reunioes}">
+			<p:column headerText="ID">
+				<h:outputText value="#{dados.id}"></h:outputText>
+			</p:column>
+			<p:column headerText="Data de Agendamento">
+				<h:outputText value="#{dados.dataAgenda}"></h:outputText>
+			</p:column>
+			<p:column headerText="Data da Reunião">
+				<h:outputText value="#{dados.dataReuniao}"></h:outputText>
+			</p:column>
+				
+				
+				<p:column>
+					<f:facet name="header">Ações</f:facet>
+					
+				<!-- Finalizar -->
+				<p:commandButton ajax="true"
+					action="#{reuniaoBean.finalizaReuniao}"
+					icon="ui-icon ui-icon-circle-check" title="Finalizar Reunião">
+					<p:confirm header="Finalizar Reunião"
+						message="Deseja realmente finalizar a reunião?"
+						icon="ui-icon-alert" />
+					<f:setPropertyActionListener value="#{dados}"
+						target="#{finalizaReuniaoBean.reuniao}" />
+
+				</p:commandButton>
+				
+				<!-- Adiar -->
+				<p:commandButton ajax="true"
+					oncomplete="PF('agendamentoDialog').show()" update=":form"
+					icon="ui-icon ui-icon-clock" title="Adiar Reunião">
+					
+					<f:setPropertyActionListener value="#{dados}"
+						target="#{reuniaoBean.reuniao}" />
+
+				</p:commandButton>
+				
+				<!-- Visualizar -->
+				<p:commandButton  update=":form"
+					icon="ui-icon ui-icon-search" title="Ver Detalhes"
+					oncomplete="PF('reuniaoDialog').show()">
+					
+					<f:setPropertyActionListener value="#{dados}"
+						target="#{reuniaoBean.reuniao}" />
+
+				</p:commandButton>
+					
+				<!-- Remover -->
+				<p:commandButton ajax="true"
+					action="#{reuniaoBean.excluirReuniao}" update=":form"
+					icon="ui-icon ui-icon-close" title="Excluir Reunião">
+					<p:confirm header="Excluir Reunião"
+						message="Deseja realmente excluir a reunião?"
+						icon="ui-icon-alert" />
+					<f:setPropertyActionListener value="#{dados}"
+						target="#{reuniaoBean.reuniao}" />
+
+				</p:commandButton>
+				
+				
+				<p:confirmDialog global="true" showEffect="fade"
+					hideEffect="explode">
+					<p:commandButton value="Sim" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="Não" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+			
+			
+			
+			</p:column>
+			
+			
+		</p:dataTable>
+		
+		<p:dialog header="Atualiza data de Agendamento" widgetVar="agendamentoDialog" modal="true" showEffect="blind" hideEffect="explode" resizable="false">
+	   		<p:calendar value="#{reuniaoBean.novaData}" mode="inline" />
+	   		<p:commandButton ajax = "false" value="Atualiza Data de Agendamento" actionListener="#{reuniaoBean.atualizaData}" styleClass="ui-priority-primary" >
+	   			
+	   		</p:commandButton>
+	   	</p:dialog >
+		<p:dialog header="Informações da Reunião" widgetVar="reuniaoDialog" modal="true" showEffect="blind" hideEffect="explode" resizable="false">
+		        <p:outputPanel id="reuniaoDetail" style="text-align:center;">
+		            <p:panelGrid  columns="2" rendered="#{not empty reuniaoBean.reuniao}" columnClasses="label,value">
+		               
+		 
+		                <h:outputText value="Id do Reunião:" />
+		                <h:outputText value="#{reuniaoBean.reuniao.id}" />
+		 
+		                <h:outputText value="Data de Agendamento:" />
+		                <h:outputText value="#{reuniaoBean.reuniao.dataAgenda}" />
+		 
+		                <h:outputText value="Data da Reunião:" />
+		                <h:outputText value="#{reuniaoBean.reuniao.dataReuniao}" />
+		 
+		                <h:outputText value="Pauta:" />
+		                <h:outputText value="#{reuniaoBean.reuniao.pauta}" />
+		                
+		                <h:outputText value="Ata: " />
+		                <h:outputText value="#{reuniaoBean.reuniao.ata}" />
+		                
+		                <h:outputText value="Processos:" />
+		                <h:outputText value="Membros:" />
+		                
+	                                
+			           	              	                
+		            </p:panelGrid>
+		        </p:outputPanel>
+		   	</p:dialog>
+		   
+
+	</h:form>
+</h:body>
+</html>
