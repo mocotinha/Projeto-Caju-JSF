@@ -10,6 +10,11 @@
 	width:100%;
 	height: 90px;
 	}
+	
+	.testeprime {
+	background-color:#3ec55c;
+	z-index: 99;
+	}
 
 #topologin {
 	
@@ -51,6 +56,63 @@
 	color: #fff;
 	font-family: calibri, verdana;
 	font-size: 18px;
+	font-weight: bold;
+	background-color: #4F9E35;
+	box-shadow: 2px 2px 2px #888888;
+	border: 0px;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+ 	border-radius:10px;
+}
+
+.btsenha {
+	float:right;
+	margin-left: 20px;
+	padding: 10px;
+	color: #fff;
+	font-family: calibri, verdana;
+	font-size: 18px;
+	font-weight: bold;
+	background-color: #C1CDC1;
+	border: 0px;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+ 	border-radius:10px;
+}
+
+.btsenha:hover {
+	float:right;
+	padding: 10px;
+	color: #fff;
+	font-family: calibri, verdana;
+	font-size: 18px;
+	font-weight: bold;
+	background-color: #878F87;
+	box-shadow: 2px 2px 2px #888888;
+	border: 0px;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+ 	border-radius:10px;
+}
+
+.btprime {
+	padding: 5px;
+	color: #fff;
+	font-family: calibri, verdana;
+	font-size: 16px;
+	font-weight: bold;
+	background-color: #3ec55c;
+	border: 0px;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+ 	border-radius:10px;
+}
+
+.btprime:hover {
+	padding: 5px;
+	color: #fff;
+	font-family: calibri, verdana;
+	font-size: 16px;
 	font-weight: bold;
 	background-color: #4F9E35;
 	box-shadow: 2px 2px 2px #888888;

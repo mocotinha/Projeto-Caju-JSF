@@ -1,0 +1,161 @@
+	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+	<h:html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:p="http://primefaces.org/ui">
+	<h:outputStylesheet name="css/bootstrap.min.css" />
+	<h:outputStylesheet name="css/style.css" />
+	<h:outputStylesheet name="css/bootstrap-theme.min.css" />
+	<h:outputScript name="js/jquery-2.1.3.min.js" />
+	<h:outputScript name="js/bootstrap.js" />
+	<h:head>
+		 <title><ui:insert name="title"></ui:insert></title>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+		<style>
+	#basic {
+		margin-top: 2em;
+	}
+	</style>
+	
+	<script type="text/javascript">
+	jQuery(document).ready(function() {
+		
+		var cont = 0;
+
+		$("#esterEgg").hide();
+		$(".footer").click(function() {
+			cont++;
+			if(cont == 5) {
+				$("#esterEgg").show();
+			}
+		});
+	});
+
+	</script>
+	</h:head>
+	<h:body>
+	<h:form id="formMain">
+		<nav class="navbar navbar-default">
+		<div class="container-fluid bgnav">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				
+				<div id="logocaju" class="navbar-brand">
+				<img src="img/logotipo.png" width="130px"></img>
+  				</div>
+			</div>
+	
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+	
+					<!-- 	        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li> -->
+	
+					<li><a href="index.jsf">Home</a></li>
+	
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-expanded="false">Membros
+							<span class="caret"></span>
+					</a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="lista_membro.jsf">Listar</a></li>
+							<li><a href="adiciona_membro.jsf">Cadastrar</a></li>
+						</ul></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-expanded="false">Colegiado
+							<span class="caret"></span>
+					</a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="cadastra_colegiado.jsf">Cadastrar</a></li>
+						</ul></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-expanded="false">Processo
+							<span class="caret"></span>
+					</a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="listaProcessos.jsf">Listar</a></li>
+							<li><a href="cadastroProcesso.jsf">Cadastrar</a></li>
+						</ul></li>
+					<!--  <li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-expanded="false">Ata
+							<span class="caret"></span>
+					</a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="#">Listar</a></li>
+							<li><a href="add_ata.jsf">Cadastrar</a></li>
+						</ul></li> --> 
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-expanded="false">Reuniao
+							<span class="caret"></span>
+					</a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="lista_reuniao.jsf">Listar</a></li>
+							<li><a href="add_reuniao.jsf">Cadastrar</a></li>
+							<li><a href="editar_reuniao.jsf">Editar</a></li>
+						</ul></li>
+						
+					<!-- <li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-expanded="false">Voto
+							<span class="caret"></span>
+					</a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="#">Listar</a></li>
+							<li><a href="#">Cadastrar</a></li>
+							<li><a href="#">Editar</a></li>
+						</ul></li> -->
+				</ul>
+					      <ul class="nav navbar-nav navbar-right">
+					        <p:commandButton value="Logout" id="logout" ajax="false" action="#{sistemaLoginBean.efetuarLogout}" style="margin-top: 9px;" />
+					      </ul>
+			</div>
+			</div>
+		<!-- /.container-fluid --> </nav>
+	</h:form>
+		<div id="maincontent" class="container">
+			<ui:insert name="body"></ui:insert>
+		</div>
+	
+		<div class="footer bg-info bgnav">
+	
+			<div class="container rodapebase">
+				
+				<div id="logocaju">
+			<center><img src="img/texto-rodape.png" width="450px"></img></center>
+				
+				<center><div id="esterEgg">
+					<img src="img/kopa_tropa.gif" width="16" class="align-center" title="Geferson"></img>
+					<img src="img/kopa_tropa.gif" width="16" class="align-center" title="Jozias"></img>
+					<img src="img/kopa_tropa.gif" width="16" class="align-center" title="Victor"></img>
+					<img src="img/kopa_tropa.gif" width="16" class="align-center" title="Rafael"></img>
+					<img src="img/kopa_tropa.gif" width="16" class="align-center" title="Gleydson"></img>
+					<img src="img/kopa_tropa.gif" width="16" class="align-center" title="Gleidson"></img>
+					<img src="img/kopa_tropa.gif" width="16" class="align-center" title="Dayvison"></img>
+					<img src="img/kopa_tropa.gif" width="16" class="align-center" title="Julio"></img>
+					<img src="img/bowser.gif" width="38" class="align-center" title="Fred"></img>
+					<img src="img/kopa_tropa.gif" width="16" class="align-center" title="Luciano"></img>
+					<img src="img/kopa_tropa.gif" width="16" class="align-center" title="Otacilio"></img>
+					<img src="img/kopa_tropa.gif" width="16" class="align-center" title="Diogenes"></img>
+					<img src="img/kopa_meninas.gif" width="16" class="align-center" title="Halyne"></img>
+					<img src="img/kopa_meninas.gif" width="16" class="align-center" title="Natacha"></img>
+					<img src="img/kopa_meninas.gif" width="16" class="align-center" title="Jaqueline"></img>
+					<img src="img/kopa_meninas.gif" width="16" class="align-center" title="Manuela"></img>
+				<img src="img/kopa_meninas.gif" width="16" class="align-center" title="Amanda"></img>
+				</div></center> 
+				
+				
+				
+  				</div>
+				
+			</div>
+	
+		</div>
+	</h:body>
+	</h:html>

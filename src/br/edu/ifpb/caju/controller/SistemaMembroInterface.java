@@ -13,6 +13,7 @@ public interface SistemaMembroInterface {
 	public String editaMembro(Membro membro);
 	public List<Membro> getAllMembros();
 	public Membro getMembroPorNome(String text);
+	public Membro getMembroPorId(long id);
 	
 
 }

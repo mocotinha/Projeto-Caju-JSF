@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.Query;
 
 import br.edu.ifpb.caju.model.Colegiado;
+import br.edu.ifpb.caju.model.Presidente;
 
 public class DAOColegiado extends DAO<Colegiado> {
 	@SuppressWarnings("unchecked")
@@ -25,7 +26,29 @@ public class DAOColegiado extends DAO<Colegiado> {
 	public Colegiado findById(int id){
 		Query q = getManager().createQuery("select * from Colegiado c where c.id = :id");
 		q.setParameter("id",id);
-		return (Colegiado) q.getSingleResult();
+		try {
+			Colegiado aux = (Colegiado) q.getSingleResult();
+			return aux;
+		} catch (Exception e) {
+			return null;
+		}
 	}
-
+	
+	public Colegiado findAtivo() {
+		Query q = getManager().createQuery("select c from Colegiado c where c.ativo = :ativo");
+		q.setParameter("ativo", true);
+		try {
+			Colegiado aux = (Colegiado) q.getSingleResult();
+			return aux;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public List<Colegiado> findAll() {
+		Query q = getManager().createQuery("select c from Colegiado c ORDER BY c.id DESC");
+		return q.getResultList();
+	}
 }

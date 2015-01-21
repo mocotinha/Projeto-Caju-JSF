@@ -6,7 +6,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+
+import org.primefaces.component.datatable.DataTable;
 
 import br.edu.ifpb.caju.dao.DAO;
 import br.edu.ifpb.caju.dao.DAOMembro;
@@ -16,7 +17,7 @@ import br.edu.ifpb.caju.model.Presidente;
 
 
 @ManagedBean
-@ViewScoped
+//@ViewScoped
 public  class SistemaMembro implements SistemaMembroInterface{
 
 	private static final String METODO_CRIPTOGRAFIA = "MD5";
@@ -24,6 +25,9 @@ public  class SistemaMembro implements SistemaMembroInterface{
 	private DAOPresidente daoP;
 	private Membro membro = new Membro();
 	private Membro selectedMembro;
+	private Presidente presidente;
+	private DataTable membrosTable;
+	
 	
 	public SistemaMembro() {
 		this.dao = new DAOMembro();
@@ -69,11 +73,30 @@ public  class SistemaMembro implements SistemaMembroInterface{
 	public String cadastraMembro() {
 		DAO.open();
 		DAO.begin();
-		this.dao.persist(this.membro);
+		if(membro.getPerfil().equals("Presidente")) {
+			presidente = new Presidente();
+			presidente.setId(membro.getId());
+			presidente.setNome(membro.getNome());
+			presidente.setEmail(membro.getEmail());
+			presidente.setTelefone(membro.getTelefone());
+			presidente.setPerfil(membro.getPerfil());
+			presidente.setAtivo(true);
+			this.daoP.updateAtivo();
+			this.daoP.merge(this.presidente);
+			this.presidente = new Presidente();
+			DAO.commit();
+			DAO.close();
+			return "lista_membro?faces-redirect=true";
+			
+		}
+		
+		
+		//this.dao.persist(this.membro);
+		this.dao.merge(this.membro);
 		DAO.commit();
 		DAO.close();
-		
-		return "index";
+		this.membro = new Membro();
+		return "lista_membro?faces-redirect=true";
 		
 	}
 
@@ -95,7 +118,9 @@ public  class SistemaMembro implements SistemaMembroInterface{
 		DAO.commit();
 		DAO.close();
 		
-		return "edit_membro";
+		this.membro = new Membro();
+		
+		return "index?faces-redirect=true";
 		
 	}
 
@@ -116,6 +141,15 @@ public  class SistemaMembro implements SistemaMembroInterface{
 		DAO.close();
 		return m;
 	}
+	
+	@Override
+	public Membro getMembroPorId(long id) {
+		DAO.open();
+		DAO.begin();
+		Membro m = null;
+		DAO.close();
+		return m;
+	}
 
 	public Presidente getMembroPorLogin(String login) {
 		DAO.open();
@@ -133,23 +167,56 @@ public  class SistemaMembro implements SistemaMembroInterface{
 		this.membro = membro;
 	}
 	
-	public void setSelectedMembro(Membro membro) {
-		this.selectedMembro = membro;
-	}
-	
 	public Membro  getSelectedMembro() {
 		return this.selectedMembro;
 	}
 	
-//	public void onRowSelect(SelectEvent event) {
-//        FacesMessage msg = new FacesMessage("Membro selecionado", ((Membro) event.getObject()).getId());
-//        FacesContext.getCurrentInstance().addMessage(null, msg);
-//    }
-// 
-//    public void onRowUnselect(UnselectEvent event) {
-//        FacesMessage msg = new FacesMessage("", ((Membro) event.getObject()).getId());
-//        FacesContext.getCurrentInstance().addMessage(null, msg);
-//    }
+
+	// Define atributo binding no dataTable com bean.membrosTable
+	// Instancia um elemento DataTable membrosTable
+	// Adiciona ao método editar selectedMembro = (Membro) membrosTable.getSelection();
+	// retorna página para onde o membro será editado
+	
+	public String editar(){
+		//JSFUtils.flashScope().put("bean", this);
+		selectedMembro = (Membro) membrosTable.getSelection();
+		return "/edita_membro";
+//		?faces-redirect=true
+
+	}
+	
+//	Metodo para utilizar Flash
+//	private static class JSFUtils {
+//		public static Flash flashScope(){
+//			return (FacesContext.getCurrentInstance().getExternalContext().getFlash());
+//		   }
+//	}
+	
+	public Boolean getIsPresidente() {
+		if(membro.getPerfil().equals("Presidente")) {
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	public Presidente getPresidente() {
+		return presidente;
+	}
+
+	public void setPresidente(Presidente presidente) {
+		this.presidente = presidente;
+	}
+
+	public DataTable getMembrosTable() {
+		return membrosTable;
+	}
+
+	public void setMembrosTable(DataTable membrosTable) {
+		this.membrosTable = membrosTable;
+	}
+
+	
 	
 
 }
