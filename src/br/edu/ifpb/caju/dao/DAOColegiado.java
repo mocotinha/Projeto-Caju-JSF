@@ -23,8 +23,14 @@ public class DAOColegiado extends DAO<Colegiado> {
 	}
 	
 	public Colegiado findById(int id){
-		Query q = getManager().createQuery("select * from Colegiado c where c.id = :id");
+		Query q = getManager().createQuery("SELECT c FROM Colegiado c where c.id = :id");
 		q.setParameter("id",id);
+		return (Colegiado) q.getSingleResult();
+	}
+	
+	public Colegiado findAtivo(){
+		Query q = getManager().createQuery("SELECT c FROM Colegiado c where c.ativo = :ativo");
+		q.setParameter("ativo", true);
 		return (Colegiado) q.getSingleResult();
 	}
 
