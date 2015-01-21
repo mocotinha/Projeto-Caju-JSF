@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<h:html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:composition template="main.xhtml">
+	
+	<ui:define name="title">Membro</ui:define>
+	<ui:define name="body">
+<!-- 		<p:link value="Bookmark"> -->
+<!-- 		    <f:param name="productId" value="10" /> -->
+<!-- 		</p:link> -->
+	
+			 <p:panel id="basic" header="Membros Registrados" footer="@IFPB" style="margin-bottom:20px">
+		<h:form id="formListagem">
+		
+			 <p:dataTable id="membrosListagem" binding="#{sistemaMembro.membrosTable}"  var="membro" value="#{sistemaMembro.allMembros}" rows="10" sortOrder="descending"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15">
+		        
+<!-- 		        <p:column headerText="Id" sortBy="#{membro.id}"> -->
+<!-- 		            <h:outputText value="#{membro.id}" /> -->
+<!-- 		        </p:column> -->
+		        
+		        <p:column headerText="Nome" >
+		            <h:outputText value="#{membro.nome}" />
+		        </p:column>
+		        
+		        <p:column headerText="Perfil">
+		            <h:outputText value="#{membro.perfil}" />
+		        </p:column>
+		        
+		        <p:column headerText="Email">
+		            <h:outputText value="#{membro.email}" />
+		        </p:column>
+		        
+		        <p:column headerText="Telefone">
+		            <h:outputText value="#{membro.telefone}" />
+		        </p:column>
+		        
+		        <p:column headerText="Ativo">
+		            <h:outputText value="#{membro.ativo ? 'Sim' : 'Não'}" />
+		        </p:column>
+		        
+		        <p:column headerText="Ações">
+		        		
+
+		        	
+		        	<h:commandLink action="#{sistemaMembro.editar}"  value="Editar">
+		       		
+		       		<f:setPropertyActionListener  target="#{sistemaMembro.membro}" value="#{membro}"/>
+		       		<f:setPropertyActionListener value="#{membro.id}" target="#{sistemaMembro.membro.id}"/>
+		       		<f:param name="id" value="#{membro.id}"/>
+			       
+			       </h:commandLink>
+		        	      
+		        </p:column>
+		        
+		    </p:dataTable>
+		    
+	    </h:form>
+	    </p:panel>
+
+</ui:define>
+	</ui:composition>
+</h:html>
+

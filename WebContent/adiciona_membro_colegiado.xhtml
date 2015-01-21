@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<h:html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:composition template="main.xhtml">
+	
+	<ui:define name="title">Membro</ui:define>
+	<ui:define name="body">
+	<h:form id="form">
+    <p:dataTable id="dtMembros" var="membro" value="#{membroColegiadoBean.membros}" widgetVar="membrosTable"
+                 emptyMessage="Nenhum membro encontrado." filteredValue="#{membroColegiadoBean.filtrados}">
+ 
+        <f:facet name="header">
+            <p:outputPanel>
+            	<h:outputText value="Colegiado: " />
+            	<h:outputText value="#{membroColegiadoBean.colegiado.id}" />
+            	<br />
+            	<h:outputText value="Iniciado em: " />
+            	<h:outputText value="#{membroColegiadoBean.colegiado.dataIni}">
+            		<f:convertDateTime pattern="dd/MM/yyyy" />
+            	</h:outputText>
+            	<br />
+                <h:outputText value="Buscar." />
+                <p:inputText id="globalFilter" onkeyup="PF('membrosTable').filter()" style="width:150px" placeholder="Faça sua busca."/>
+            </p:outputPanel>
+        </f:facet>
+        
+        <p:column style="width:32px;text-align: center">
+             <p:commandButton update=":form:dtMembros :form:dtSelecionados" action="#{membroColegiadoBean.adicionaMembro}" icon="ui-icon ui-icon-plusthick" title="View" rendered="#{membroColegiadoBean.membrosEmpty}">
+                <f:setPropertyActionListener value="#{membro}" target="#{membroColegiadoBean.membro}" />
+            </p:commandButton>
+        </p:column>
+ 
+        <p:column filterBy="#{membro.id}" headerText="Id" footerText="contains" filterMatchMode="contains">
+            <h:outputText value="#{membro.id}" />
+        </p:column>
+        
+        <p:column filterBy="#{membro.nome}" headerText="Nome" footerText="contains" filterMatchMode="contains">
+            <h:outputText value="#{membro.nome}" />
+        </p:column>
+    </p:dataTable>
+	<p:outputPanel>
+       <h:outputText value="Membros do colegiado" />
+    </p:outputPanel>
+    <p:dataTable id="dtSelecionados" var="membroSelecionado" value="#{membroColegiadoBean.selecionados}">
+    
+   		 <p:column style="width:32px;text-align: center" >
+             <p:commandButton update=":form:dtMembros :form:dtSelecionados" action="#{membroColegiadoBean.removeMembro}" icon="ui-icon ui-icon-minusthick" title="View" rendered="#{membroColegiadoBean.membrosEmpty}">
+                <f:setPropertyActionListener value="#{membroSelecionado}" target="#{membroColegiadoBean.membro}" />
+            </p:commandButton>
+        </p:column>
+	    <p:column headerText="Id">
+	        <h:outputText value="#{membroSelecionado.id}" />
+	    </p:column>
+	 
+	    <p:column headerText="Nome">
+	        <h:outputText value="#{membroSelecionado.nome}" />
+	    </p:column>
+	</p:dataTable>
+	<p:commandButton value="Salvar membros no colegiado" id="salvar" update="aviso" actionListener="#{membroColegiadoBean.salvarMembros}" ajax="false" rendered="#{membroColegiadoBean.membrosEmpty}"/>
+	<p:growl id="aviso" life="2000" />
+</h:form>
+	</ui:define>
+	</ui:composition>
+</h:html>

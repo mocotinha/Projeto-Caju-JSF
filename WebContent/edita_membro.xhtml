@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<h:html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:composition template="main.xhtml">
+	
+	<ui:define name="title">Cadastrar Colegiado</ui:define>
+	<ui:define name="body">
+		
+		<h:form id="form">
+		    <p:panel id="panel" header="Editar" style="margin-bottom:10px;">
+		        <p:messages id="messages" />
+		        <h:panelGrid columns="3" cellpadding="5">
+		            <p:outputLabel for="nomeMembro" value="Nome :" />
+		            <p:inputText id="nomeMembro" value="#{sistemaMembro.membro.nome}"  required="true" label="Firstname">
+		                <f:validateLength minimum="2" />
+		            </p:inputText>
+		            <p:message for="nomeMembro" />
+		 
+		            <p:outputLabel for="emailMembro" value="Email:"/>
+		            <p:inputText id="emailMembro" value="#{sistemaMembro.membro.email}" validatorMessage="E-mail inválido" required="true" label="Surname">
+		            	<f:validateRegex
+							pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+		            </p:inputText>
+		            <p:message for="emailMembro" />
+		            
+		            
+		            
+		            <p:outputLabel for="telefoneMembro" value="Telefone:" />
+		            <p:inputText id="telefoneMembro" value="#{sistemaMembro.membro.telefone}" required="true" label="Surname"/>
+		            <p:message for="telefoneMembro" />
+		            
+		
+		           <p:outputLabel for="membroPerfil" value="Perfil:" required="true"/>
+			        <p:selectOneMenu binding="#{menu}" id="membroPerfil" value="#{sistemaMembro.membro.perfil}" style="width:120px">
+			            <f:selectItem itemLabel="Membro" itemValue="Membro" />
+			            <f:selectItem id="pres" itemLabel="Presidente" itemValue="Presidente" />
+			            <f:ajax render="presidenteForm" />
+			        </p:selectOneMenu>
+		            
+		           <h:inputHidden value="#{sistemaMembro.membro.id}" id="inputHidden_1" />
+		        </h:panelGrid>
+		        
+		        <p:outputLabel for="membroPerfil" value="" required="true"/>
+			        <h:panelGroup id="presidenteForm">
+					    <h:panelGroup rendered="#{sistemaMembro.membro.perfil == 'Presidente'}">
+					        <h:panelGrid columns="2" id="matchGrid" cellpadding="8">                   
+						        <h:outputLabel for="pwd1" value="Senha: *" />
+						        <p:password id="pwd1" a:placeholder="Insira nova para alterar" value="#{sistemaMembro.presidente.senha}" label="Senha" required="true" />
+						 
+						    </h:panelGrid>
+					    </h:panelGroup>
+					</h:panelGroup>
+		        
+		    </p:panel>
+		 
+		    <p:toolbar>
+		        <f:facet name="left">
+		            <h:commandLink value="Submit"  action="#{sistemaMembro.cadastraMembro}" style="margin-right:20px;" >
+		            	<f:setPropertyActionListener value="#{sistemaMembro.membro.id}" target="#{sistemaMembro.membro.id}"/>
+		            </h:commandLink>
+		        </f:facet>
+		 		<f:facet name="left">
+		            <h:link value="Cancelar" outcome="index?faces-redirect=true" />
+		        </f:facet>
+		        <f:facet name="right">
+		            <p:commandButton value="Reset" update="panel" process="@this" style="margin-right:20px;" >
+		                <p:resetInput target="panel" />
+		            </p:commandButton>
+		        </f:facet>
+		    </p:toolbar>
+		</h:form>
+	</ui:define>
+	</ui:composition>
+</h:html>
