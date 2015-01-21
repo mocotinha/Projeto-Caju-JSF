@@ -1,6 +1,7 @@
 package br.edu.ifpb.caju.model;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -16,7 +17,7 @@ import javax.persistence.TemporalType;
 
 
 @Entity
-public class Colegiado {
+public class Colegiado{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

@@ -1,10 +1,13 @@
 package br.edu.ifpb.caju.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Arrays;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import org.primefaces.context.RequestContext;
@@ -25,11 +28,23 @@ public class SistemaColegiadoBean implements SistemaColegiadoInterface {
 	private List<Membro> membros = new ArrayList<Membro>();
 	private Colegiado colegiadoSelecionado;
 	
+	@ManagedProperty("#{membroColegiadoBean}")
+	private SistemaMembroColegiadoBean smcb;
+	
+
+	public SistemaMembroColegiadoBean getSmcb() {
+		return smcb;
+	}
+
+	public void setSmcb(SistemaMembroColegiadoBean smcb) {
+		this.smcb = smcb;
+	}
 
 	public SistemaColegiadoBean() {
 		this.dao = new DAOColegiado();
 		colegiado = new Colegiado();
 		colegiadoSelecionado = new Colegiado();
+		
 	}
 	
 	@Override
@@ -42,6 +57,7 @@ public class SistemaColegiadoBean implements SistemaColegiadoInterface {
 		this.dao.persist(colegiado);
 		DAO.commit();
 		DAO.close();
+		smcb.inicializa();
 	}
 
 	@Override

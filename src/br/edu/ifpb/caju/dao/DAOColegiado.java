@@ -27,5 +27,15 @@ public class DAOColegiado extends DAO<Colegiado> {
 		q.setParameter("id",id);
 		return (Colegiado) q.getSingleResult();
 	}
-
+	
+	public Colegiado findAtivo() {
+		Query q = getManager().createQuery("select c from Colegiado c where c.ativo = :ativo");
+		q.setParameter("ativo", true);
+		return (Colegiado) q.getSingleResult();
+	}
+	@SuppressWarnings("unchecked")
+	public List<Colegiado> findAll() {
+		Query q = getManager().createQuery("select c from Colegiado c ORDER BY c.id DESC");
+		return q.getResultList();
+	}
 }

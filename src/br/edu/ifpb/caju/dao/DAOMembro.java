@@ -26,6 +26,12 @@ public class DAOMembro extends DAO<Membro>{
 		q.setParameter("id", id);
 		return (Membro) q.getSingleResult();
 	}
+	
+	public void desativaMembros() {
+		Query q = getManager().createQuery("UPDATE Membro m SET m.ativo = :false" );
+		q.setParameter("false", false);
+		q.executeUpdate();
+	}
 
 
 }

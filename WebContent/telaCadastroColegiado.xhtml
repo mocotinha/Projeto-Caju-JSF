@@ -1,48 +1,53 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html">
+      
 <h:head>
-	<title>Cadastrar Colegiado</title>
+<title>Cadastrar Colegiado</title>
 </h:head>
+
 <h:body>
-	<h:form id="cadastraColegiado">
-		<p:growl id="growl" showDetail="true" sticky="true" />
+	<h:form id="formCadCol">
 		<div>
-			<p:commandButton value="Cadastrar" id="btCadastrar" update="growl,listaColegiado " actionListener="#{colegiadoBean.cadastraColegiado}" styleClass="ui-priority-primary">
+			<p:commandButton value="Cadastrar" id="btCadastrar" update="tableCad " actionListener="#{colegiadoBean.cadastraColegiado}" styleClass="ui-priority-primary">
 				<p:confirm header="Confirmação" message="Você tem Certeza?" icon="ui-icon-alert" />
 			</p:commandButton>
 		</div>
 		<p:spacer width="10px" />
-		<p:outputPanel id="listaColegiado">
-		<p:dataTable var="colegiado" value="#{colegiadoBean.allColegiado}">
-			<p:column headerText="Código">
-				<h:outputText value="#{colegiado.id}" />
-			</p:column>
-			<p:column headerText="Data Inicial">
-				<h:outputText value="#{colegiado.dataIni}" >
-					<f:convertDateTime pattern="dd/MM/yyyy" />
-				</h:outputText>
-			</p:column>
-
-			<p:column headerText="Data Final">
-				<h:outputText value="#{colegiado.dataFim}" >
-					<f:convertDateTime pattern="dd/MM/yyyy" />
-				</h:outputText>
-			</p:column>
-			<p:column headerText="Ativo">
-				<p:selectBooleanCheckbox value="#{colegiado.ativo}" disabled="true" />
-			</p:column>
-			<p:column>
-				<p:commandButton update=":form:colDetalhes"  value="Detalhes" type="button" onclick="PF('detalhesDialog').show();"> 
-					  <f:setPropertyActionListener value="#{colegiado}" target="#{colegiadoBean.colegiadoSelecionado}" />
-				</p:commandButton>
-			</p:column>
-		</p:dataTable>
-		</p:outputPanel>
-		
-		<p:dialog id="colDetalhes" header="Colegiado" modal="true" widgetVar="detalhesDialog" minHeight="40" width="1150" >
+		<p:dataTable id="tableCad" var="col" value="#{colegiadoBean.allColegiado}">
+        <p:column headerText="Id">
+            <h:outputText value="#{col.id}" />
+        </p:column>
+        <p:column headerText="Data Ini">
+            <h:outputText value="#{col.dataIni}" >
+            	<f:convertDateTime pattern="dd/MM/yyyy" />
+            </h:outputText>
+        </p:column>
+        <p:column headerText="Data Fim">
+            <h:outputText value="#{col.dataFim}" >
+            	<f:convertDateTime pattern="dd/MM/yyyy" />
+            </h:outputText>
+        </p:column>
+        <p:column headerText="Ativo" >
+        	<p:outputLabel rendered="#{col.ativo}"> 
+        		<span class="ui-icon ui-icon-circle-check"></span>
+        	</p:outputLabel>
+        	<p:outputLabel rendered="#{!col.ativo}"> 
+        		<span class="ui-icon ui-icon-circle-close"></span>
+        	</p:outputLabel>
+        </p:column>
+        <p:column>
+			<p:commandButton update= ":colDetalhes" value="Detalhes" oncomplete="PF('detalhesDialog').show()"> 
+				<f:setPropertyActionListener  render="detalhesDialog" value="#{col}" target="#{colegiadoBean.colegiadoSelecionado}"/>
+			</p:commandButton>
+		</p:column>
+    </p:dataTable>
+	</h:form>
+	
+	<p:dialog id="colDetalhes" header="Colegiado" modal="true" widgetVar="detalhesDialog" minHeight="40" width="750" >
 			<div>
 			<h:outputText value="#{colegiadoBean.colegiadoSelecionado.id}" />
 		</div>
@@ -53,25 +58,47 @@
 			</h:outputText>
 		</div>
 		<div>
-			<p:outputLabel for="dataFim" value="Data Final:" />
-			<p:calendar id="dataFim" value="#{colegiadoBean.colegiadoSelecionado.dataFim}" showOn="button" >
+			<p:outputLabel value="Data Final:" />
+			<h:outputText value="#{colegiadoBean.colegiadoSelecionado.dataFim}">
 			 	<f:convertDateTime pattern="dd/MM/yyyy" />
-			</p:calendar>
+			 </h:outputText>
 		</div>
 		<div>
 			<h:outputText value="Ativo: " />
-        	<p:selectBooleanCheckbox value="#{colegiadoBean.colegiadoSelecionado.ativo}" disabled="true" />
+			<p:outputLabel rendered="#{colegiadoBean.colegiadoSelecionado.ativo}"> 
+        		<span class="ui-icon ui-icon-circle-check"></span>
+        	</p:outputLabel>
+        	<p:outputLabel rendered="#{!colegiadoBean.colegiadoSelecionado.ativo}"> 
+        		<span class="ui-icon ui-icon-circle-close"></span>
+        	</p:outputLabel>
 		</div>
 		<div>
-			<p:commandButton value="Alterar" id="btEditar" update="growl" actionListener="#{colegiadoBean.editaColegiado}" styleClass="ui-priority-primary" />
+		<p:dataList value="#{colegiadoBean.colegiadoSelecionado.membros}" var="membro" type="ordered">
+	        <f:facet name="header">
+	            Membros
+	        </f:facet>
+        	#{membro.nome}, #{membro.telefone}
+        	<br />
+        	Ativo:
+        	<p:outputLabel rendered="#{membro.ativo}"> 
+        		<span class="ui-icon ui-icon-circle-check"></span>
+        	</p:outputLabel>
+        	<p:outputLabel rendered="#{!membro.ativo}"> 
+        		<span class="ui-icon ui-icon-circle-close"></span>
+        	</p:outputLabel>	
+    	</p:dataList>
+		</div>
+		<div>
+			<p:link outcome="membroColegiado.xhtml"	value="Adicionar Membros" rendered="#{colegiadoBean.colegiadoSelecionado.ativo}" />
 		</div>
 		</p:dialog>
-		
-		<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-        	<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-       	 	<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-    	</p:confirmDialog>
-		
-	</h:form>
+	
+	
+	
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+       	<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+  	 	<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+    </p:confirmDialog>
+
 </h:body>
 </html>
