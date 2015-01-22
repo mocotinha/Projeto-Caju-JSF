@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.Query;
 
 import br.edu.ifpb.caju.model.Colegiado;
-import br.edu.ifpb.caju.model.Presidente;
 
 public class DAOColegiado extends DAO<Colegiado> {
 	@SuppressWarnings("unchecked")

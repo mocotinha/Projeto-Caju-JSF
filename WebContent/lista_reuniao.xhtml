@@ -36,7 +36,7 @@
 						message="Deseja realmente finalizar a reunião?"
 						icon="ui-icon-alert" />
 					<f:setPropertyActionListener value="#{dados}"
-						target="#{finalizaReuniaoBean.reuniao}" />
+						target="#{reuniaoBean.reuniao}" />
 
 				</p:commandButton>
 				
@@ -75,8 +75,7 @@
 				
 				<p:confirmDialog global="true" showEffect="fade"
 					hideEffect="explode">
-					<p:commandButton value="Sim" type="button"
-						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="Sim" type="button" actionListener="#{reuniaoBean.transferePag}" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"></p:commandButton>
 					<p:commandButton value="Não" type="button"
 						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 				</p:confirmDialog>
@@ -96,7 +95,7 @@
 	   	</p:dialog >
 		<p:dialog header="Informações da Reunião" widgetVar="reuniaoDialog" modal="true" showEffect="blind" hideEffect="explode" resizable="false">
 		        <p:outputPanel id="reuniaoDetail" style="text-align:center;">
-		            <p:panelGrid  columns="2" rendered="#{not empty reuniaoBean.reuniao}" columnClasses="label,value">
+		            <p:panelGrid columns="2" rendered="#{not empty reuniaoBean.reuniao}" columnClasses="label,value">
 		               
 		 
 		                <h:outputText value="Id do Reunião:" />

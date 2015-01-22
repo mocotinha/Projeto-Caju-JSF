@@ -10,6 +10,7 @@ import javax.faces.bean.ManagedBean;
 import org.primefaces.component.datatable.DataTable;
 
 import br.edu.ifpb.caju.dao.DAO;
+import br.edu.ifpb.caju.dao.DAOColegiado;
 import br.edu.ifpb.caju.dao.DAOMembro;
 import br.edu.ifpb.caju.dao.DAOPresidente;
 import br.edu.ifpb.caju.model.Membro;
@@ -76,6 +77,7 @@ public  class SistemaMembro implements SistemaMembroInterface{
 		DAO.open();
 		DAO.begin();
 		if(membro.getPerfil().equals("Presidente")) {
+			DAOColegiado daoC = new DAOColegiado();
 			Presidente aux = this.daoP.findAll().get(0);
 			if(aux.getLogin().equals("caju")){
 				this.daoP.remove(aux);
@@ -87,10 +89,14 @@ public  class SistemaMembro implements SistemaMembroInterface{
 			presidente.setPerfil(membro.getPerfil());
 			presidente.setLogin(membro.getEmail());
 			presidente.setSenha(this.senha);
-			System.out.println(this.senha);
 			presidente.setAtivo(true);
 			this.daoP.updateAtivo();
+			daoC.updateAtivo();
 			this.daoP.merge(this.presidente);
+			
+			
+			
+			
 			this.presidente = new Presidente();
 						
 		}else{

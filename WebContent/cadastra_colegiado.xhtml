@@ -14,6 +14,7 @@
 			<p:dialog id="colDetalhes" header="Colegiado" modal="true"
 				widgetVar="detalhesDialog" minHeight="40" width="750">
 				<div>
+					<p:outputLabel value="Codigo: " />
 					<h:outputText value="#{colegiadoBean.colegiadoSelecionado.id}" />
 				</div>
 				<div>
@@ -48,13 +49,7 @@
 	        </f:facet>
         	#{membro.nome}, #{membro.telefone}
         	<br />
-        	Ativo:
-        	<p:outputLabel rendered="#{membro.ativo}">
-							<span class="ui-icon ui-icon-circle-check"></span>
-						</p:outputLabel>
-						<p:outputLabel rendered="#{!membro.ativo}">
-							<span class="ui-icon ui-icon-circle-close"></span>
-						</p:outputLabel>
+        	
 					</p:dataList>
 				</div>
 				<div>
@@ -76,15 +71,15 @@
 			<p:dataTable id="tableCad" var="col"
 				value="#{colegiadoBean.allColegiado}">
 
-				<p:column headerText="Id">
+				<p:column headerText="Código">
 					<h:outputText value="#{col.id}" />
 				</p:column>
-				<p:column headerText="Data Ini">
+				<p:column headerText="Data de Início">
 					<h:outputText value="#{col.dataIni}">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
 				</p:column>
-				<p:column headerText="Data Fim">
+				<p:column headerText="Data do Fim">
 					<h:outputText value="#{col.dataFim}">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>

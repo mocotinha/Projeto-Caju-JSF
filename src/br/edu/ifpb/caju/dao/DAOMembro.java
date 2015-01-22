@@ -29,7 +29,7 @@ public class DAOMembro extends DAO<Membro>{
 	}
 	
 	public void desativaMembros() {
-		Query q = getManager().createQuery("UPDATE Membro m SET m.ativo = :false" );
+		Query q = getManager().createQuery("UPDATE Membro m SET m.ativo = :false where " );
 		q.setParameter("false", false);
 		q.executeUpdate();
 	}

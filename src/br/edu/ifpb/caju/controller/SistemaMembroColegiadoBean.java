@@ -76,7 +76,7 @@ public class SistemaMembroColegiadoBean {
 //			m.setAtivo(false);
 //			
 //		}
-		dm.desativaMembros();
+//		dm.desativaMembros();
 		for(Membro mem : selecionados){
 			colegiado.addMembro(mem);
 			mem.addColegiado(colegiado);
