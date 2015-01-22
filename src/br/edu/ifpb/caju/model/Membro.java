@@ -150,4 +150,16 @@ public class Membro {
 		this.reunioes = reunioes;
 	}
 
+
+
+	@Override
+	public String toString() {
+		return "Membro [id=" + id + ", nome=" + nome + ", email=" + email
+				+ ", telefone=" + telefone + ", perfil=" + perfil + ", ativo="
+				+ ativo + ", reunioes=" + reunioes + ", colegiados="
+				+ colegiados + ", votos=" + votos + ", processos=" + processos
+				+ "]";
+	}
+
+	
 }

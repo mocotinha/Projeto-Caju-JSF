@@ -1,9 +1,16 @@
 package br.edu.ifpb.caju.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 
 @Entity
-public class Presidente extends Membro{
+public class Presidente extends Membro implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String login;
 	private String senha;
 	
