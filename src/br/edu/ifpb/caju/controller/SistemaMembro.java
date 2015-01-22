@@ -30,6 +30,7 @@ public  class SistemaMembro implements SistemaMembroInterface{
 	private String senha;
 	
 	
+	
 	public SistemaMembro() {
 		this.dao = new DAOMembro();
 		this.daoP =  new DAOPresidente();
@@ -75,30 +76,36 @@ public  class SistemaMembro implements SistemaMembroInterface{
 		DAO.open();
 		DAO.begin();
 		if(membro.getPerfil().equals("Presidente")) {
+			Presidente aux = this.daoP.findAll().get(0);
+			if(aux.getLogin().equals("caju")){
+				this.daoP.remove(aux);
+			}
 			presidente.setId(membro.getId());
 			presidente.setNome(membro.getNome());
 			presidente.setEmail(membro.getEmail());
 			presidente.setTelefone(membro.getTelefone());
 			presidente.setPerfil(membro.getPerfil());
 			presidente.setLogin(membro.getEmail());
-			presidente.setSenha(senha);
+			presidente.setSenha(this.senha);
+			System.out.println(this.senha);
 			presidente.setAtivo(true);
 			this.daoP.updateAtivo();
 			this.daoP.merge(this.presidente);
 			this.presidente = new Presidente();
-			DAO.commit();
-			DAO.close();
-			return "lista_membro?faces-redirect=true";
-			
+						
+		}else{
+			this.dao.merge(this.membro);
+	
 		}
+		this.membro = new Membro();
 		
-		
-		//this.dao.persist(this.membro);
-		this.dao.merge(this.membro);
 		DAO.commit();
 		DAO.close();
-		this.membro = new Membro();
 		return "lista_membro?faces-redirect=true";
+		
+		
+		
+		
 		
 	}
 

@@ -28,7 +28,7 @@
 		            </p:inputText>
 		            <p:message for="emailMembro" />
 		            <p:outputLabel for="telefoneMembro" value="Telefone:" />
-		            <p:inputText id="telefoneMembro" value="#{sistemaMembro.membro.telefone}" required="true" label="Surname"/>
+		            <p:inputMask id="telefoneMembro" title="Formato: (DDD) 0000-0000" value="#{sistemaMembro.membro.telefone}" validatorMessage="Número de telefone inválido." mask="(99) 9999-9999" required="true" label="Surname" />
 		            <p:message for="telefoneMembro" />
 		            
 		
@@ -38,6 +38,11 @@
 			            <f:selectItem id="pres" itemLabel="Presidente" itemValue="Presidente" />
 			            <f:ajax render="presidenteForm" />
 			        </p:selectOneMenu>
+			         <p:message for="membroPerfil" />
+			        
+			        <h:outputLabel for="pwd1" value="Senha: *" />
+				    <p:password id="pwd1" placeholder="Insira nova para alterar" value="#{sistemaMembro.senha}" label="Senha" required="true" />
+		            <p:message for="pwd1" />
 		            
 		           <h:inputHidden value="#{sistemaMembro.membro.id}" id="inputHidden_1" />
 		        </h:panelGrid>
@@ -46,8 +51,7 @@
 			        <h:panelGroup id="presidenteForm">
 					    <h:panelGroup rendered="#{sistemaMembro.membro.perfil == 'Presidente'}">
 					        <h:panelGrid columns="2" id="matchGrid" cellpadding="8">                   
-						        <h:outputLabel for="pwd1" value="Senha: *" />
-						        <p:password id="pwd1" placeholder="Insira nova para alterar" value="#{sistemaMembro.presidente.senha}" label="Senha" required="true" />
+						       
 						 
 						    </h:panelGrid>
 					    </h:panelGroup>

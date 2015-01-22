@@ -13,8 +13,9 @@ public class DAOPresidente extends DAO<Presidente> implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	public Presidente findByLogin(String email) {
-		Query q = getManager().createQuery("select m from Presidente m where m.login like :login" );
+		Query q = getManager().createQuery("select m from Presidente m where m.login like :login and m.ativo = :true" );
 		q.setParameter("login", email);
+		q.setParameter("true", true);
 		try {
 			Presidente aux = (Presidente) q.getSingleResult();
 			return aux;

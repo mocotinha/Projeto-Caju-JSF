@@ -101,6 +101,8 @@ public class SistemaLoginBean implements Serializable{
 			session.setAttribute("login", presidente);
 			session.setAttribute("logado", isLogged);
 			return "index";
+		}else{
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, null, "Login e/ou senha invalidos!"));
 		}
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, null, "Login e/ou senha invalidos!"));
 		return null;
