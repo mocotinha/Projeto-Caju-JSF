@@ -103,7 +103,6 @@ public class SistemaReuniaoBean {
 	public void atualizaReuniao(){
 		DAO.open();
 		DAO.begin();
-		System.out.println(membrosSelecionados);
 		reuniao = dao.find(selectedReuniao.getId());
 		reuniao.setdataReuniao(novaData);
 
@@ -121,6 +120,7 @@ public class SistemaReuniaoBean {
 		dao.merge(reuniao);
 		reunioes = getReunioes();
 		DAO.close();
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, null, "Reunião atualizada com sucesso!"));
 	}
 
 	
@@ -280,8 +280,7 @@ public List<Processo> getProcessoIdProcesso(){
 		
 		try{
 			sisReuniao.cadastraReuniao(reuniao);
-			FacesMessage faceMessage = new FacesMessage("Reuniao salva com Sucesso");
-			context.addMessage(null,faceMessage);
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, null, "Reunião cadastrada com sucesso!"));
 			retorno = "sucesso";
 			reuniao = new Reuniao();
 		}catch(Exception e){

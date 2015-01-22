@@ -8,10 +8,10 @@
 	
 	<ui:composition template="main.xhtml">
 	
-	<ui:define name="title">Cadastro Reunião</ui:define>
-	<ui:define name="body" styleClass="aumentapg">
+	<ui:define name="title">Lista Reunião</ui:define>
+	<ui:define name="body">
 	<h:form id="form">
-		<p:dataTable var="dados" value="#{reuniaoBean.reunioes}">
+		<p:dataTable var="dados" value="#{reuniaoBean.reunioes}" binding="#{reuniaoBean.reunioesTable}">
 			<p:column headerText="ID">
 				<h:outputText value="#{dados.id}"></h:outputText>
 			</p:column>
@@ -21,7 +21,9 @@
 				</h:outputText>
 			</p:column>
 			<p:column headerText="Data da Reunião">
-				<h:outputText value="#{dados.dataReuniao}"></h:outputText>
+				<h:outputText value="#{dados.dataReuniao}">
+					<f:convertDateTime pattern="dd/MM/yyyy"/>
+				</h:outputText>
 			</p:column>
 				
 				
@@ -36,7 +38,7 @@
 						message="Deseja realmente finalizar a reunião?"
 						icon="ui-icon-alert" />
 					<f:setPropertyActionListener value="#{dados}"
-						target="#{reuniaoBean.reuniao}" />
+						target="#{finalizaReuniaoBean.reuniao}" />
 
 				</p:commandButton>
 				
@@ -73,11 +75,9 @@
 				</p:commandButton>
 				
 				
-				<p:confirmDialog global="true" showEffect="fade"
-					hideEffect="explode">
-					<p:commandButton value="Sim" type="button" actionListener="#{reuniaoBean.transferePag}" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"></p:commandButton>
-					<p:commandButton value="Não" type="button"
-						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				<p:confirmDialog id="testeDlg" global="true" showEffect="fade" hideEffect="explode">
+					<p:commandButton id="teste1" value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton id="teste2" value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 				</p:confirmDialog>
 			
 			
@@ -93,9 +93,10 @@
 	   			
 	   		</p:commandButton>
 	   	</p:dialog >
+	   	
 		<p:dialog header="Informações da Reunião" widgetVar="reuniaoDialog" modal="true" showEffect="blind" hideEffect="explode" resizable="false">
 		        <p:outputPanel id="reuniaoDetail" style="text-align:center;">
-		            <p:panelGrid columns="2" rendered="#{not empty reuniaoBean.reuniao}" columnClasses="label,value">
+		            <p:panelGrid  columns="2" rendered="#{not empty reuniaoBean.reuniao}" columnClasses="label,value">
 		               
 		 
 		                <h:outputText value="Id do Reunião:" />

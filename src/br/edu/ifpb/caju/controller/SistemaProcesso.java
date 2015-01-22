@@ -102,7 +102,6 @@ public class SistemaProcesso implements SistemaProcessoInterface{
 		Membro membroAux;
 		DAO.open();
 		DAO.begin();
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>"+membro.getNome());
 		membroAux = daoM.findMembroById(membro.getId());
 		membro.addProcesso(processo);
 		dao.merge(processo);
@@ -137,8 +136,6 @@ public class SistemaProcesso implements SistemaProcessoInterface{
 
 
 	public void editaBean() {
-		System.out.println("chegou em editar...."+processo.getIdProcesso());
-		System.out.println("relator="+processo.getRelator().getNome());
 		this.membro = this.processo.getRelator();
 		editaProcesso();
 	}
@@ -174,7 +171,6 @@ public class SistemaProcesso implements SistemaProcessoInterface{
 		DAO.begin();
 		processos = this.dao.findByAtributes(busca);
 		DAO.close();
-		System.out.println("Buscando por:"+busca+" Qnt Resultados:"+processos.size());
 		this.processos = processos;
 	}
 	

@@ -11,7 +11,6 @@ import br.edu.ifpb.caju.model.Membro;
 public class MembroConverter implements Converter {
 
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
-		System.out.println("getAsObject="+(Membro) SelectItemsUtils.findValueByStringConversion(context, component, value, this));
     	return (Membro) SelectItemsUtils.findValueByStringConversion(context, component, value, this);    
     } 
 	
@@ -22,7 +21,6 @@ public class MembroConverter implements Converter {
 			
 			id = ((Membro) membro).getId()+"";
 		}
-		System.out.println("getAsString>>>>>>"+id);
 		return id;
 		
 	}

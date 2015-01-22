@@ -8,18 +8,17 @@
 	
 	<ui:composition template="main.xhtml">
 	
-	<ui:define name="title">Membro</ui:define>
-	<ui:define name="body" styleClass="aumentapg">
-	<!-- <h:outputFormat value="#{finalizaReuniaoBean.reuniao.id}"></h:outputFormat> -->
+	<ui:define name="title">Alterar Reunião</ui:define>
+	<ui:define name="body">
 	<h:form id="form">
-		<p:panel id="panel" header="Finalizar Reunião" style="margin-bottom:10px;">
-			<p:messages id="messages" />
+		<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+		<p:panel id="panel" header="Finalizar Reunião" style="margin-bottom:10px;" >
 			
 			<!-- DATA REUNIÃO -->
 			<h:panelGrid columns="3" cellpadding="5">
 				<p:outputLabel for="dtReuniao" value="Data da Reunião:" />
 				<p:calendar id="dtReuniao"
-					value="#{finalizaReuniaoBean.reuniao.dataReuniao}" showOn="button" />
+					value="#{reuniaoBean.novaData}" showOn="button" />
 				<br />
 			</h:panelGrid>
 			
@@ -27,52 +26,46 @@
 			<h:panelGrid columns="3" cellpadding="5">
 				<h:outputLabel for="memb" value="Membros:" />
 				<p:selectCheckboxMenu id="memb"
-					value="#{finalizaReuniaoBean.reuniao.membrosSelecionados}" label="Membros"
-					filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
-					<f:selectItems value="#{finalizaReuniaoBean.reuniao.membros}" var="membro"
-						itemLabel="#{membro.nome}" itemValue="#{membro.nome}" />
-				</p:selectCheckboxMenu>
-				<p:commandLink value="Submit" update="display" />
-			</h:panelGrid>
+					value="#{reuniaoBean.membrosSelecionados}" label="Membros"
+					filter="true" filterMatchMode="startsWith" panelStyle="width:250px">					
+					<f:selectItems value="#{reuniaoBean.membros}" var="membro"
+						itemLabel="#{membro.nome}" itemValue="#{membro.nome}" />						
+				</p:selectCheckboxMenu>			
+				<p:commandLink value="Submit" update="display" />		
+			</h:panelGrid>			
 			<p:outputPanel id="display"
-				style="width:250px;padding-left:5px;margin-top:10px">
-				<p:dataList value="#{finalizaReuniaoBean.reuniao.membrosSelecionados}" var="membro" emptyMessage="Nenhum Membro Selecionado">
+				style="width:250px;padding-left:5px;margin-top:10px">				
+				<p:dataList value="#{reuniaoBean.membrosSelecionados}" var="membro" emptyMessage="Nenhum Membro Selecionado">
 			            #{membro}
-			    </p:dataList>
+			    </p:dataList>			    
 			    <br />
 			</p:outputPanel>
 			
-			<!-- ATA -->
-			<h:outputLabel for="criar_ata" value="Ata: " />
-			<p:commandButton value="Criar Ata" action="add_ata" actionListener="#{finalizaReuniaoBean.selecionarReuniao}"></p:commandButton>
-
 			<!-- PROCESSOS -->
 			<h:panelGrid columns="3" cellpadding="5">
 				<h:outputLabel for="proc" value="Processos:" />
 				<p:selectCheckboxMenu id="proc"
-					value="#{finalizaReuniaoBean.processos}" label="Processos"
-					filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
-					<f:selectItems value="#{finalizaReuniaoBean.processos}" var="processo"
-						itemLabel="#{processo.idProcesso}" itemValue="#{processo.idProcesso}" />
-				</p:selectCheckboxMenu>
-				<p:commandLink value="Submit" update="display" />
-			</h:panelGrid>
-			<p:outputPanel id="display"
-				style="width:250px;padding-left:5px;margin-top:10px">
-				<p:dataList value="#{finalizaReuniaoBean.processos}" var="processo" emptyMessage="Nenhum processo Selecionado">
+					value="#{reuniaoBean.processosSelecionados}" label="Processos"
+					filter="true" filterMatchMode="startsWith" panelStyle="width:250px">					
+					<f:selectItems value="#{reuniaoBean.listaProcessoAtivos}" var="processo"
+						itemLabel="#{processo.idProcesso}" itemValue="#{processo.idProcesso}" />						
+				</p:selectCheckboxMenu>			
+				<p:commandLink value="Submit" update="displayp" />		
+			</h:panelGrid>			
+			<p:outputPanel id="displayp"
+				style="width:250px;padding-left:5px;margin-top:10px">				
+				<p:dataList value="#{reuniaoBean.processosSelecionados}" var="processo" emptyMessage="Nenhum Processo Selecionado">
 			            #{processo}
-			    </p:dataList>
+			    </p:dataList>			    
 			    <br />
 			</p:outputPanel>
-			
-			
 			
 		</p:panel>
 
 		<p:toolbar>
 			<f:facet name="left">
-				<p:commandButton value="Cadastrar" update="panel"
-					actionListener="#{reuniaoBean.cadastraReuniao}"
+				<p:commandButton value="Salvar" update="panel"
+					actionListener="#{reuniaoBean.atualizaReuniao}"
 					style="margin-right:20px;" />
 			</f:facet>
 
@@ -84,5 +77,5 @@
 		</p:toolbar>
 	</h:form>
 	</ui:define>
-	</ui:composition>
+	</ui:composition>	
 </h:html>

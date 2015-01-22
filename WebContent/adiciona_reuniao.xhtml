@@ -8,12 +8,11 @@
 	
 	<ui:composition template="main.xhtml">
 	
-	<ui:define name="title">Membro</ui:define>
-	<ui:define name="body" styleClass="aumentapg">
+	<ui:define name="title">Cadastrar Reunião</ui:define>
+	<ui:define name="body">
 	<h:form id="form">
+		<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 		<p:panel id="panel" header="Cadastro da Reunião" style="margin-bottom:10px;">
-			<p:messages id="messages" />
-			
 			<!-- DATA AGENDAMENTO E DATA REUNIÃO -->
 			<h:panelGrid columns="3" cellpadding="5">
 				<p:outputLabel for="dtAgendamento" value="Data do Agendamento:" />
@@ -56,4 +55,5 @@
 	</h:form>
 	</ui:define>
 	</ui:composition>
+
 </h:html>
