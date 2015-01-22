@@ -25,8 +25,9 @@ public  class SistemaMembro implements SistemaMembroInterface{
 	private DAOPresidente daoP;
 	private Membro membro = new Membro();
 	private Membro selectedMembro;
-	private Presidente presidente;
+	private Presidente presidente = new Presidente();
 	private DataTable membrosTable;
+	private String senha;
 	
 	
 	public SistemaMembro() {
@@ -74,12 +75,13 @@ public  class SistemaMembro implements SistemaMembroInterface{
 		DAO.open();
 		DAO.begin();
 		if(membro.getPerfil().equals("Presidente")) {
-			presidente = new Presidente();
 			presidente.setId(membro.getId());
 			presidente.setNome(membro.getNome());
 			presidente.setEmail(membro.getEmail());
 			presidente.setTelefone(membro.getTelefone());
 			presidente.setPerfil(membro.getPerfil());
+			presidente.setLogin(membro.getEmail());
+			presidente.setSenha(senha);
 			presidente.setAtivo(true);
 			this.daoP.updateAtivo();
 			this.daoP.merge(this.presidente);
@@ -215,6 +217,16 @@ public  class SistemaMembro implements SistemaMembroInterface{
 	public void setMembrosTable(DataTable membrosTable) {
 		this.membrosTable = membrosTable;
 	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+	
+	
 
 	
 	

@@ -16,8 +16,8 @@ public class Processo {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	private int idProcesso;
-	private int matRequerente;
+	private String idProcesso;
+	private String matRequerente;
 	private String nomeRequerente;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataDoc;
@@ -70,19 +70,19 @@ public class Processo {
 
 
 
-	public int getIdProcesso() {
+	public String getIdProcesso() {
 		return idProcesso;
 	}
 
-	public void setIdProcesso(int idProcesso) {
+	public void setIdProcesso(String idProcesso) {
 		this.idProcesso = idProcesso;
 	}
 
-	public int getMatRequerente() {
+	public String getMatRequerente() {
 		return matRequerente;
 	}
 
-	public void setMatRequerente(int matRequerente) {
+	public void setMatRequerente(String matRequerente) {
 		this.matRequerente = matRequerente;
 	}
 
@@ -125,6 +125,19 @@ public class Processo {
 	public void setId(int id) {
 		this.id = id;
 	}
+
+
+
+	@Override
+	public String toString() {
+		return "Processo [id=" + id + ", idProcesso=" + idProcesso
+				+ ", matRequerente=" + matRequerente + ", nomeRequerente="
+				+ nomeRequerente + ", dataDoc=" + dataDoc + ", assunto="
+				+ assunto + ", periodo=" + periodo + ", reuniao=" + reuniao
+				+ ", voto=" + voto + ", relator=" + relator + "]";
+	}
+	
+	
 	
 	
 	

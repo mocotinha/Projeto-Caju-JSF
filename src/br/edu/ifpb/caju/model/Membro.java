@@ -12,10 +12,8 @@ import javax.persistence.InheritanceType;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
-import org.eclipse.persistence.sessions.serializers.Serializer;
-
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Membro {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -24,7 +22,7 @@ public class Membro {
 	private String email;
 	private String telefone;
 	private String perfil;
-	private boolean ativo;
+	private boolean ativo = true;
 	@ManyToMany
 	private List<Reuniao> reunioes = new ArrayList<Reuniao>();
 	
@@ -149,5 +147,51 @@ public class Membro {
 	public void setReunioes(List<Reuniao> reunioes) {
 		this.reunioes = reunioes;
 	}
+
+	@Override
+	public String toString() {
+		return nome;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (ativo ? 1231 : 1237);
+		result = prime * result
+				+ ((colegiados == null) ? 0 : colegiados.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + id;
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		result = prime * result + ((perfil == null) ? 0 : perfil.hashCode());
+		result = prime * result
+				+ ((processos == null) ? 0 : processos.hashCode());
+		result = prime * result
+				+ ((reunioes == null) ? 0 : reunioes.hashCode());
+		result = prime * result
+				+ ((telefone == null) ? 0 : telefone.hashCode());
+		result = prime * result + ((votos == null) ? 0 : votos.hashCode());
+		return result;
+	}
+
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Membro other = (Membro) obj;
+		
+		if (id != other.id)
+			return false;
+		
+		return true;
+	}
+	
+	
 
 }

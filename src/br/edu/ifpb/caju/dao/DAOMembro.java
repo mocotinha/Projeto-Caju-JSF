@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Query;
 
+import br.edu.ifpb.caju.model.Colegiado;
 import br.edu.ifpb.caju.model.Membro;
 
 public class DAOMembro extends DAO<Membro>{
@@ -32,6 +33,17 @@ public class DAOMembro extends DAO<Membro>{
 		q.setParameter("false", false);
 		q.executeUpdate();
 	}
-
+	
+	@SuppressWarnings("unchecked")
+	public List<Membro> getAllPorColegiado(Colegiado colegiado){
+		System.out.println(colegiado);
+		Query q = getManager().createQuery("SELECT m FROM Colegiado c JOIN FETCH c.membros m WHERE c = :colegiado");
+		q.setParameter("colegiado", colegiado);
+		List<Membro> aux =  q.getResultList();
+		for (Membro membro : aux) {
+			System.out.println(membro);
+		}
+		return aux;
+	}
 
 }

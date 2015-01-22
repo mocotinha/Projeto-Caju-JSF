@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:h="http://java.sun.com/jsf/html"
-	  xmlns:f="http://java.sun.com/jsf/core"
-	  xmlns:ui="http://java.sun.com/jsf/facelets"
-	  xmlns:p="http://primefaces.org/ui"
-	  xmlns:pe="http://primefaces.org/ui/extensions">
-	<h:head>
-		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-		<title>Processos</title>
-	</h:head>
-	<h:body>
+<h:html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
 	
-		<h:form id="form1">
+	<ui:composition template="main.xhtml">
+	
+	<ui:define name="title">Membro</ui:define>
+	<ui:define name="body" styleClass="aumentapg">
+	
+		<h:form id="form1" styleClass="aumentapg">
 				
 					<p:panel id="panel" header="Cadastro" style="margin-bottom:10px;">
 					
@@ -55,14 +54,12 @@
 	        					
 	         					
 	         					<p:outputLabel for="membroSelect" value="Membros:" />
-	         					<p:selectOneMenu id="membroSelect" value="#{sistemaProcesso.membro.id}" required="true">
-	         						<f:selectItem itemLabel="Selecione um relator"></f:selectItem>
-                    				<f:selectItems value="#{sistemaProcesso.allMembros}" var="membro" itemLabel="#{membro.nome}" itemValue="#{membro.id}" />
+	         					<p:selectOneMenu id="membroSelect" value="#{sistemaProcesso.membro}" required="true">
+                    				<f:selectItems value="#{sistemaProcesso.allMembros}"/>
+                    				<f:converter converterId="MembrosConverter" />
                 				</p:selectOneMenu>
 						        <p:message for="membroSelect" />
 						        
-						        <p:inputText style="visibility: hidden;" id="id" value="#{sistemaProcesso.processo.id}" required="false" />
-	        					
 			   			
 						</h:panelGrid>
 					</p:panel>
@@ -80,7 +77,7 @@
 	
 	    
 	    
-		<h:form id="form">
+		<h:form id="form" styleClass="aumentapg">
 			<p:growl id="growl" life="2000" />
 			
 			<br/>
@@ -103,10 +100,9 @@
 			    </p:confirmDialog>
 		       
 		       
-		        <p:commandButton ajax="true" process="@this" update = ":form1:panel"  icon="ui-icon ui-icon-pencil" title="Editar Processo">
+		        <p:commandButton ajax="true" process="@form" update=":form1:panel,:form1:membroSelect"  icon="ui-icon ui-icon-pencil" title="Editar Processo"
+		        		action="#{sistemaProcesso.editaBean}">
 		       		<f:setPropertyActionListener value="#{pross}" target="#{sistemaProcesso.processo}"/>
-		       		<f:setPropertyActionListener value="#{pross.id}" target="#{sistemaProcesso.processo.id}"/>
-		       
 		       </p:commandButton>
 		     
 		 
@@ -156,6 +152,6 @@
 		        </p:outputPanel>
 		   	</p:dialog>
 	    </h:form>
-  
-	</h:body>
-</html>
+	</ui:define>
+	</ui:composition>
+</h:html>

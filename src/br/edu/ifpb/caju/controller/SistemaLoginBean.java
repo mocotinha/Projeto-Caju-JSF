@@ -2,6 +2,7 @@ package br.edu.ifpb.caju.controller;
 
 import java.io.Serializable;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -26,6 +27,28 @@ public class SistemaLoginBean implements Serializable{
 	
 	public SistemaLoginBean(){
 		this.dao = new DAOPresidente();
+	}
+	
+	@PostConstruct
+	public void init(){
+		DAOPresidente dao = new DAOPresidente();
+		DAO.open();
+		DAO.begin();
+		if(dao.findAll().size()==0){
+			Presidente pres = new Presidente();
+			pres.setAtivo(true);
+			pres.setEmail("cajutsiifpb@gmail.com");
+			pres.setLogin("caju");
+			pres.setNome("Caju Admin");
+			pres.setSenha("caju");
+			pres.setPerfil("Presidente");
+			pres.setTelefone("(00)0000-0000");
+			dao.persist(pres);
+			DAO.commit();
+		}
+		DAO.close();
+		
+		
 	}
 	
 	public void recuperarSenha(){

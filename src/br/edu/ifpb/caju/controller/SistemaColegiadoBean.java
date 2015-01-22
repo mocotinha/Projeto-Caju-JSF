@@ -12,6 +12,7 @@ import org.primefaces.context.RequestContext;
 
 import br.edu.ifpb.caju.dao.DAO;
 import br.edu.ifpb.caju.dao.DAOColegiado;
+import br.edu.ifpb.caju.dao.DAOMembro;
 import br.edu.ifpb.caju.model.Colegiado;
 import br.edu.ifpb.caju.model.Membro;
 import br.edu.ifpb.caju.model.Reuniao;
@@ -31,6 +32,15 @@ public class SistemaColegiadoBean implements SistemaColegiadoInterface {
 	
 	public SistemaMembroColegiadoBean getSmcb() {
 		return smcb;
+	}
+	
+	public void atualizaMembros(){
+		DAOMembro dao = new DAOMembro();
+		membros = dao.getAllPorColegiado(colegiadoSelecionado);
+		DAO.open();
+		DAO.begin();
+		DAO.close();
+		RequestContext.getCurrentInstance().update("@all");
 	}
 
 	public void setSmcb(SistemaMembroColegiadoBean smcb) {

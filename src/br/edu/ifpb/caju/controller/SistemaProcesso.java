@@ -1,12 +1,12 @@
 package br.edu.ifpb.caju.controller;
 
-import java.util.HashMap;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
 import br.edu.ifpb.caju.dao.DAO;
 import br.edu.ifpb.caju.dao.DAOMembro;
@@ -16,7 +16,7 @@ import br.edu.ifpb.caju.model.Processo;
 
 
 @ManagedBean (name ="sistemaProcesso")
-@ApplicationScoped
+@SessionScoped
 public class SistemaProcesso implements SistemaProcessoInterface{
 
 	private DAOProcesso dao;
@@ -25,7 +25,7 @@ public class SistemaProcesso implements SistemaProcessoInterface{
 	private List<Processo> processos;
 	private String busca;
 	
-	private Membro membro = new Membro();
+	private Membro membro; 
 	private List<Membro> membros;
 
 	
@@ -103,6 +103,7 @@ public class SistemaProcesso implements SistemaProcessoInterface{
 		Membro membroAux;
 		DAO.open();
 		DAO.begin();
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>"+membro.getNome());
 		membroAux = daoM.findMembroById(membro.getId());
 		membro.addProcesso(processo);
 		dao.merge(processo);
@@ -123,7 +124,7 @@ public class SistemaProcesso implements SistemaProcessoInterface{
 	public void removeProcesso() {
 		DAO.open();
 		DAO.begin();
-		String valor = new String(processo.getIdProcesso()+"");
+		String valor = processo.getIdProcesso();
 		this.dao.remove(dao.merge(processo));
 		DAO.commit();
 		DAO.close();
@@ -135,6 +136,14 @@ public class SistemaProcesso implements SistemaProcessoInterface{
 		
 	}
 
+
+	public void editaBean() {
+		System.out.println("chegou em editar...."+processo.getIdProcesso());
+		System.out.println("relator="+processo.getRelator().getNome());
+		this.membro = this.processo.getRelator();
+		editaProcesso();
+	}
+	
 	@Override
 	public void editaProcesso() {
 		DAO.open();
@@ -159,18 +168,15 @@ public class SistemaProcesso implements SistemaProcessoInterface{
 	
 	 
 
-
+	@Override
 	public void buscaProcessos() {
-		@SuppressWarnings("unused")
 		List<Processo> processos;
 		DAO.open();
 		DAO.begin();
-		
-		//TODO: Precisa pegar o DAO de Amandas
-		//processos = this.dao.findByAtributes(busca);
+		processos = this.dao.findByAtributes(busca);
 		DAO.close();
-
-		//this.processos = processos;
+		System.out.println("Buscando por:"+busca+" Qnt Resultados:"+processos.size());
+		this.processos = processos;
 	}
 	
 	
@@ -181,12 +187,6 @@ public class SistemaProcesso implements SistemaProcessoInterface{
 		processo = this.dao.find(processo);
 		DAO.commit();
 		DAO.close();
-	}
-
-	@Override
-	public List<Processo> getProcessosByAtributes(HashMap<String, String> dados) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

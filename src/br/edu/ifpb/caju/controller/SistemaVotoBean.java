@@ -18,9 +18,10 @@ import br.edu.ifpb.caju.model.Voto;
 
 @ManagedBean (name = "sistemaVoto")
 @ViewScoped
-public class SistemaVotoBean{
-	@ManagedProperty (value ="#{sistemaProcesso}")
+public class SistemaVotoBean implements SistemaVotoInterface {
+	@ManagedProperty ("#{sistemaProcesso}")
 	private SistemaProcesso sistemaProcesso;
+	
 	private DAOVoto dao;
 	private Voto voto;
 	private List<Voto> votos = new ArrayList<Voto>();
@@ -36,6 +37,15 @@ public class SistemaVotoBean{
 		membro = sistemaProcesso.getMembro();
 		
 	}
+	
+	public SistemaProcesso getSistemaProcesso() {
+		return sistemaProcesso;
+	}
+
+	public void setSistemaProcesso(SistemaProcesso sistemaProcesso) {
+		this.sistemaProcesso = sistemaProcesso;
+	}
+
 	
 	public Processo getProcesso() {
 		return processo;
@@ -73,7 +83,7 @@ public class SistemaVotoBean{
 		DAO.begin();
 		voto.setProcesso(processo);
 		voto.setMembro(membro);
-		this.dao.persist(voto);
+		this.dao.merge(voto);
 		DAO.commit();
 		DAO.close();
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Voto registrado com Sucesso!"));
@@ -81,7 +91,7 @@ public class SistemaVotoBean{
 
 	}
 
-
+	@Override
 	public void removeVoto(Voto voto) {
 		
 		DAO.open();
@@ -97,7 +107,7 @@ public class SistemaVotoBean{
 
 	}
 
-	
+	@Override
 	public void editaVoto(Voto voto) {
 		//Precisa?
 		DAO.open();
@@ -108,7 +118,7 @@ public class SistemaVotoBean{
 
 	}
 
-
+	@Override
 	public List<Voto> getAllVoto() {
 		DAO.open();
 		DAO.begin();

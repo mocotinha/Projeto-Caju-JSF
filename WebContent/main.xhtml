@@ -74,32 +74,22 @@
 							<span class="caret"></span>
 					</a>
 						<ul class="dropdown-menu" role="menu">
-							<li><a href="cadastra_colegiado.jsf">Cadastrar</a></li>
+							<li><a href="cadastra_colegiado.jsf">Gerenciar</a></li>
 						</ul></li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-expanded="false">Processo
 							<span class="caret"></span>
 					</a>
 						<ul class="dropdown-menu" role="menu">
-							<li><a href="listaProcessos.jsf">Listar</a></li>
-							<li><a href="cadastroProcesso.jsf">Cadastrar</a></li>
+							<li><a href="lista_processos.jsf">Listar</a></li>
 						</ul></li>
-					<!--  <li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-expanded="false">Ata
-							<span class="caret"></span>
-					</a>
-						<ul class="dropdown-menu" role="menu">
-							<li><a href="#">Listar</a></li>
-							<li><a href="add_ata.jsf">Cadastrar</a></li>
-						</ul></li> --> 
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-expanded="false">Reuniao
 							<span class="caret"></span>
 					</a>
 						<ul class="dropdown-menu" role="menu">
 							<li><a href="lista_reuniao.jsf">Listar</a></li>
-							<li><a href="add_reuniao.jsf">Cadastrar</a></li>
-							<li><a href="editar_reuniao.jsf">Editar</a></li>
+							<li><a href="adiciona_reuniao.jsf">Cadastrar</a></li>
 						</ul></li>
 						
 					<!-- <li class="dropdown"><a href="#" class="dropdown-toggle"
@@ -120,12 +110,12 @@
 		<!-- /.container-fluid --> </nav>
 	</h:form>
 		<div id="maincontent" class="container">
-			<ui:insert name="body"></ui:insert>
+			<ui:insert name="body" styleClass="aumentapg"></ui:insert>
 		</div>
 	
-		<div class="footer bg-info bgnav">
+		<footer class="footer bg-info bgnav rodapebase">
 	
-			<div class="container rodapebase">
+			<div class="container">
 				
 				<div id="logocaju">
 			<center><img src="img/texto-rodape.png" width="450px"></img></center>
@@ -156,6 +146,6 @@
 				
 			</div>
 	
-		</div>
+		</footer>
 	</h:body>
 	</h:html>

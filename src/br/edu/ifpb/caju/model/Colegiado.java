@@ -92,4 +92,15 @@ public class Colegiado {
 	public void setId(int id) {
 		this.id = id;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Colegiado [id=" + id + ", dataIni=" + dataIni + ", dataFim="
+				+ dataFim + ", membros=" + membros + ", ativo=" + ativo
+				+ ", reunioes=" + reunioes + "]";
+	}
+	
+	
+	
 }

@@ -12,7 +12,7 @@
 	<ui:define name="body">
 		
 		<h:form id="form">
-		    <p:panel id="panel" header="Editar" style="margin-bottom:10px;">
+		    <p:panel id="panel" header="Editar">
 		        <p:messages id="messages" />
 		        <h:panelGrid columns="3" cellpadding="5">
 		            <p:outputLabel for="nomeMembro" value="Nome :" />
@@ -27,9 +27,6 @@
 							pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
 		            </p:inputText>
 		            <p:message for="emailMembro" />
-		            
-		            
-		            
 		            <p:outputLabel for="telefoneMembro" value="Telefone:" />
 		            <p:inputText id="telefoneMembro" value="#{sistemaMembro.membro.telefone}" required="true" label="Surname"/>
 		            <p:message for="telefoneMembro" />
@@ -50,7 +47,7 @@
 					    <h:panelGroup rendered="#{sistemaMembro.membro.perfil == 'Presidente'}">
 					        <h:panelGrid columns="2" id="matchGrid" cellpadding="8">                   
 						        <h:outputLabel for="pwd1" value="Senha: *" />
-						        <p:password id="pwd1" a:placeholder="Insira nova para alterar" value="#{sistemaMembro.presidente.senha}" label="Senha" required="true" />
+						        <p:password id="pwd1" placeholder="Insira nova para alterar" value="#{sistemaMembro.presidente.senha}" label="Senha" required="true" />
 						 
 						    </h:panelGrid>
 					    </h:panelGroup>

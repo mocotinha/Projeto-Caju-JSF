@@ -3,17 +3,26 @@
 	
 }
 
+
+
 .rodapebase {
 	position: absolute;
 	bottom: 0;
 	background-color:#3ec55c;
 	width:100%;
 	height: 90px;
+	z-index:99;
 	}
 	
 	.testeprime {
 	background-color:#3ec55c;
 	z-index: 99;
+	}
+	
+	.aumentapg{
+	clear:both;
+	display: block;
+	z-index:99;
 	}
 
 #topologin {

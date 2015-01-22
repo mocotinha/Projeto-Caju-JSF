@@ -11,8 +11,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
-import br.edu.ifpb.caju.controller.SistemaColegiadoBean;
-import br.edu.ifpb.caju.controller.SistemaReuniao;
 import br.edu.ifpb.caju.dao.DAO;
 import br.edu.ifpb.caju.dao.DAOReuniao;
 import br.edu.ifpb.caju.model.Colegiado;
